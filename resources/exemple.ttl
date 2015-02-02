@@ -1,0 +1,64 @@
+@base				<http://www.wisecat.com/>								.
+@prefix		:		<http://www.wisecat.com/#>								.
+@prefix 	rdf: 	<http://www.w3.org/1999/02/22-rdf-syntax-ns#>			.
+@prefix 	rdfs: 	<http://www.w3.org/2000/01/rdf-schema#>					.
+@prefix 	owl: 	<http://www.w3.org/2002/07/owl#>						.
+@prefix 	xsd: 	<http://www.w3.org/2001/XMLSchema#>						.
+@prefix 	foaf:	<http://xmlns.com/foaf/0.1/>							.
+@prefix 	lmdb:	<http://data.linkedmdb.org/resource/>					.
+
+#---------------------------------------------------------------------------#
+# 								Movies, actors,  ...						#
+#---------------------------------------------------------------------------#
+
+lmdb:film/1771 		a 						:Movie 							;
+					:hasRank 				:Rp2 							.
+
+lmdb:film/1056 		a 						:Movie 							;
+					:hasRank 				:Rm2 							.
+
+lmdb:film/1099 		a 						:Movie 							.
+
+lmdb:actor/29411 	a 						:Actor 							;
+					:hasRank 				:Rp1 							.
+
+lmdb:actor/31940 	a 						:Actor 							.
+
+lmdb:director/10417	a 						:Director						.
+
+lmdb:editor/3002	a 						:Editor							.
+
+lmdb:writer/16096	a 						:Writer 						.
+
+#---------------------------------------------------------------------------#
+# 								Users 										#
+#---------------------------------------------------------------------------#
+
+:Romain				a						:User							;
+					:sex			 		:Male							;
+	 				:age					"25"^^xsd:integer				;
+	 				:country				"FR"^^xsd:string				;
+	 				:hasLevel 				:L3 							;
+	 				:ranks 				[
+	 										:rank 		:Rm2 			;
+	 										:rankable 	:film/1056 		.
+	 									]									;
+	 				:ranks 				[
+	 										:rank 		:Rp2 				;
+	 										:rankable 	:film/1771 			.
+	 									]									.
+
+:Mortadha			a						:User							;
+					:sex			 		:Male							;
+	 				:age					"27"^^xsd:integer				;
+	 				:country				"FR"^^xsd:string				;
+	 				:hasLevel 				:L3 							;
+	 				:follow					:Romain							;
+	 				:ranks 				[
+	 										:rank 		:Rp1 			;
+	 										:rankable 	:actor/29411	.
+	 									]									;
+	 				:recommends			[
+	 										:to 		:Romain			;
+	 										:rankable 	:director/10417	.
+	 									]									;
