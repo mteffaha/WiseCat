@@ -21,12 +21,12 @@
 
 
 ## Run
-> npm install node/app/
+> npm install node/app/  
 > node node/app/server.js
 
 ## Build
 
-You will need Jade, Stylus & CoffeeScript
-See build.sh
-*Creates a .thrash folder*
+You will need Jade, Stylus & CoffeeScript  
+See build.sh  
+*Creates a .thrash folder*  
 Also runs with firefox (& Chrome)
