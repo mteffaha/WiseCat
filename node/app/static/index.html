@@ -4,14 +4,17 @@
     <title>WiseCat !</title>
     <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script id="facebook-jssdk" src="//connect.facebook.net/en_US/sdk.js"></script>
+    <script src="facebook.js"></script>
     <script src="main.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <fb:login-button id="auth"></fb:login-button>
     <div id="search">
       <input type="text" class="search">
     </div>
     <textarea id="title" type="text"></textarea><br>
     <textarea id="autocomplete"></textarea>
+    <div data-share="true" data-width="450" data-show-faces="true" class="fb-like"></div>
   </body>
 </html>
