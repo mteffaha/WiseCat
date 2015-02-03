@@ -5,6 +5,7 @@
 @prefix 	owl: 	<http://www.w3.org/2002/07/owl#>						.
 @prefix 	xsd: 	<http://www.w3.org/2001/XMLSchema#>						.
 @prefix 	foaf:	<http://xmlns.com/foaf/0.1/>							.
+@prefix 	lmdb:	<http://data.linkedmdb.org/resource/movie>				.
 
 
 #############################################################################
@@ -16,50 +17,60 @@
 #---------------------------------------------------------------------------#
 
 :Movie 				a						rdfs:Class						;
+					owl:sameAs				lmdb:film 						;
 					rdfs:subClassOf 		:Rankable						;
 	 				rdfs:label				"Film"							;
 	 				rdfs:comment			"Classe des films"				.
 
 :Actor 				a						rdfs:Class						;
+					owl:sameAs				lmdb:actor						;
 					rdfs:subClassOf			:Rankable						;
 					rdfs:label				"Acteur"						;
 	 				rdfs:comment			"Classe des acteurs"			.
 
 :Director			a						rdfs:Class						;
+					owl:sameAs				lmdb:director					;
 					rdfs:subClassOf 		:Rankable						;
 					rdfs:label				"Metteur en scène"				;
 	 				rdfs:comment			"Classe des metteurs en scène"	.
 
 :Editor 			a						rdfs:Class						;
+					owl:sameAs				lmdb:editor 					;
 					rdfs:subClassOf 		:Rankable						;
 					rdfs:label				"Monteur"						;
 	 				rdfs:comment			"Classe des monteurs" 			.
 
 :Writer 			a						rdfs:Class						;
+					owl:sameAs				lmdb:writer 					;
 					rdfs:subClassOf 		:Rankable						;
 					rdfs:label				"Scénariste"					;
 	 				rdfs:comment			"Classe des scénaristes"		.
 
 :Subject 			a						rdfs:Class						;
+					owl:sameAs				lmdb:film_subject				;
 					rdfs:label				"Sujet"							;
 	 				rdfs:comment			"Classe des sujets d'un film"	.
 
 :Genre	 			a						rdfs:Class						;
+					owl:sameAs				lmdb:film_genre	 				;
 					rdfs:subClassOf 		:Rankable						;
 					rdfs:label				"Genre"							;
 	 				rdfs:comment			"Classe des genres d'un film"	.
 
 :Song	 			a						rdfs:Class						;
+					owl:sameAs				lmdb:film_featured_song			;
 					rdfs:subClassOf 		:Rankable						;
 					rdfs:label				"Musique"						;
 	 				rdfs:comment			"Classe des musiques de film"	.
 
 :Composer 			a						rdfs:Class						;
+					owl:sameAs				lmdb:music_contributor			;
 					rdfs:subClassOf 		:Rankable						;
 					rdfs:label				"Compositeur"					;
 	 				rdfs:comment			"Classe des de compositeur"		.
 
 :Runtime 			a						rdfs:Class						;
+					owl:sameAs				lmdb:music_contributor			;
 					rdfs:label				"Durée"							;
 	 				rdfs:comment			"Classe des durées de film"		.
 
@@ -187,6 +198,18 @@
 					rdfs:comment 			"décrit la relation de suivi entre utilisateur";
 					rdfs:domain 			:User							;
 					rdfs:range				:User 							.
+
+:watchLater			a 						rdfs:Property					;
+					rdfs:label 				"regardera plus tard"			;
+					rdfs:comment 			"décrit la relation d'ajout à la watch list";
+					rdfs:domain 			:User							;
+					rdfs:range				:Movie 							.
+
+:ignore 			a 						rdfs:Property					;
+					rdfs:label 				"ignore"						;
+					rdfs:comment 			"décrit la relation d'ignorer un film";
+					rdfs:domain 			:User							;
+					rdfs:range				:Movie 							.
 
 # Usage of :ranks :
 # 	:me 	:ranks 			[
