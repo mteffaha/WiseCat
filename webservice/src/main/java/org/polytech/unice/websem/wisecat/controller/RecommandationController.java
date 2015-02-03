@@ -24,7 +24,7 @@ public class RecommandationController {
 			"http://www.travaasa.com/holidayproblems/wp-content/uploads/2012/11/into-the-wild-movie-poster-1020406877.jpg",
 			"http://cdn.collider.com/wp-content/uploads/the-expendables-2-poster2.jpg"};
 
-	@RequestMapping(value = "recommandation", method = RequestMethod.GET)
+	@RequestMapping(value = "recommendation", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Movie> getShopInJSON() {
 		List<Movie> recommandations = new ArrayList<Movie>();

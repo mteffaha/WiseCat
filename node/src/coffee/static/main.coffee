@@ -7,27 +7,37 @@ $ ->
 		# Search
 		if event.keyCode is 13
 			$.ajax 	
-				url: '/search'
-				type: 'POST'
-				data: 
-					user: FB.user.id
-					val: text
-				success: (data) ->
+				url 	: '/search'
+				type 	: 'POST'
+				data 	: 
+					user 	: FB.user.id
+					val 	: text
+				success	: (data) ->
 					$('#title').val data
 				dataType: 'json'
 		# Autocomplete
 		else if event.key.length is 1
 			$.ajax 	
-				url: '/autocomplete'
-				type: 'POST'
-				data: 
-					user: FB.user.id
-					val: text
-				success: (data) ->
+				url 	: '/autocomplete'
+				type 	: 'POST'
+				data 	: 
+					user	: FB.user.id
+					val 	: text
+				success	: (data) ->
 					$('#autocomplete').val data
 				dataType: 'json'
 			
-
+	# Recommend action handler
+	$('#recommend').on 'click', () ->
+		$.ajax 	
+			url 	: '/recommend'
+			type 	: 'POST'
+			# data 	: 
+			# 	user	: FB.user.id
+			# 	val 	: text
+			success	: (data) ->
+				$('#recommendations').val data
+			dataType: 'json'
 
 
 
