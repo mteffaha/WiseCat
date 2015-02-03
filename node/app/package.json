@@ -4,8 +4,8 @@
   "description": "A movie recommendation web application",
   "main": "server.js",
   "dependencies": {
-    "bl": "^0.9.4",
     "async": "^0.9.0",
+    "bl": "^0.9.4",
     "body-parser": "^1.10.2",
     "express": "^4.11.0",
     "mongodb": "^1.4.26"
@@ -36,4 +36,3 @@
   },
   "homepage": "https://github.com/mteffaha/WiseCat"
 }
-

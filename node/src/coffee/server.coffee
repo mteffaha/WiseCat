@@ -2,8 +2,8 @@ express 			= require 'express'
 WC 					= express()
 bodyParser 			= require 'body-parser'
 async 				= require 'async'
-lmdb	 			= require './queries'
-myapi 	 			= require './myapifilms'
+lmdb	 			= require './modules/queries'
+myapi 	 			= require './modules/myapifilms'
 
 ###
 # Server config
@@ -11,12 +11,11 @@ myapi 	 			= require './myapifilms'
 server = WC.listen 3000, ->
 	host = server.address().address
 	port = server.address().port
-	console.log 'Server listening at : http://%s:%s', host, port
 
 ###
 # Static content
 ###
-WC.use express.static __dirname
+WC.use express.static __dirname + '/static'
 WC.use bodyParser.urlencoded(
 	extended: yes
 	)
@@ -41,7 +40,10 @@ WC.route '/autocomplete'
 WC.route '/search'
 	.post (req, res) ->
 		text = req.body.val
-		lmdb.search title: text, (err, contents) -> res.json contents.toString()
+		lmdb.search title: text, (err, contents) ->
+			if err
+				console.log err
+			res.json contents.toString()
 
 		# async.waterfall [
 		# 	(cb)			 -> lmdb.search text,

@@ -97,6 +97,7 @@ _query = (query, cb) ->
 
 	# L'objet request et le callback de la réponse
 	req = http.request options, (res) ->
+		console.log 'lalala'
 		res.pipe bl cb
 
 	req.on 'error', (e) ->

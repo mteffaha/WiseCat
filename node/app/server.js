@@ -10,9 +10,9 @@
 
   async = require('async');
 
-  lmdb = require('./queries');
+  lmdb = require('./modules/queries');
 
-  myapi = require('./myapifilms');
+  myapi = require('./modules/myapifilms');
 
 
   /*
@@ -22,8 +22,7 @@
   server = WC.listen(3000, function() {
     var host, port;
     host = server.address().address;
-    port = server.address().port;
-    return console.log('Server listening at : http://%s:%s', host, port);
+    return port = server.address().port;
   });
 
 
@@ -31,7 +30,7 @@
    * Static content
    */
 
-  WC.use(express["static"](__dirname));
+  WC.use(express["static"](__dirname + '/static'));
 
   WC.use(bodyParser.urlencoded({
     extended: true
@@ -66,6 +65,9 @@
     return lmdb.search({
       title: text
     }, function(err, contents) {
+      if (err) {
+        console.log(err);
+      }
       return res.json(contents.toString());
     });
   });

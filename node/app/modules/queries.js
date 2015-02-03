@@ -63,6 +63,7 @@
       }
     };
     req = http.request(options, function(res) {
+      console.log('lalala');
       return res.pipe(bl(cb));
     });
     req.on('error', function(e) {
