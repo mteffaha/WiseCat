@@ -56,4 +56,20 @@ public class Movie {
     public void setActors(List<Person> actors) {
         this.actors = actors;
     }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
 }
