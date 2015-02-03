@@ -9,6 +9,7 @@
           url: '/search',
           type: 'POST',
           data: {
+            user: FB.user.id,
             val: text
           },
           success: function(data) {
@@ -21,6 +22,7 @@
           url: '/autocomplete',
           type: 'POST',
           data: {
+            user: FB.user.id,
             val: text
           },
           success: function(data) {

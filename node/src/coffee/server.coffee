@@ -28,6 +28,7 @@ WC.use bodyParser.urlencoded(
 WC.route '/autocomplete'
 	.post (req, res) ->
 		text = req.body.val
+		console.log req.body.user
 		myapi.autocomplete text, (err, data) ->
 			data = JSON.parse data
 			res.json (d.title for d in data)
@@ -39,6 +40,7 @@ WC.route '/autocomplete'
 
 WC.route '/search'
 	.post (req, res) ->
+		console.log req.body.user
 		text = req.body.val
 		lmdb.search title: text, (err, contents) ->
 			if err

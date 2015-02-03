@@ -10,6 +10,7 @@ $ ->
 				url: '/search'
 				type: 'POST'
 				data: 
+					user: FB.user.id
 					val: text
 				success: (data) ->
 					$('#title').val data
@@ -20,6 +21,7 @@ $ ->
 				url: '/autocomplete'
 				type: 'POST'
 				data: 
+					user: FB.user.id
 					val: text
 				success: (data) ->
 					$('#autocomplete').val data

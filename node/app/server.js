@@ -44,6 +44,7 @@
   WC.route('/autocomplete').post(function(req, res) {
     var text;
     text = req.body.val;
+    console.log(req.body.user);
     return myapi.autocomplete(text, function(err, data) {
       var d;
       data = JSON.parse(data);
@@ -61,6 +62,7 @@
 
   WC.route('/search').post(function(req, res) {
     var text;
+    console.log(req.body.user);
     text = req.body.val;
     return lmdb.search({
       title: text
