@@ -1,7 +1,6 @@
-# Node tier
+# Node tier :bowtie:
 
-## Structure
-
+## Structure :v:
 * node/
   * app/
     * modules/ (app modules)
@@ -14,19 +13,21 @@
     * jade/ (jade source files)
     * stylus/ (stylus source files)
   * build.sh (build script)
-  * README.md (you are here)
+  * README.md (:point_left: you are here)
 * resources/
-  * exemple.ttl (some exemple triples)
+  * exemple.ttl (some example triples)
   * wisecat.ttl (ontology)
 
 
-## Run
-> npm install node/app/  
-> node node/app/server.js
+## Run :runner:
+> npm install node/app/ (first time only)  
+> node node/app/server.js  
+> firefox localhost:3000/  
 
-## Build
-
+## Build :sparkles:
 You will need Jade, Stylus & CoffeeScript  
 See build.sh  
 *Creates a .thrash folder*  
 Also runs with firefox (& Chrome)
+
+:smile_cat:
