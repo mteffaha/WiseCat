@@ -1,5 +1,6 @@
 package org.polytech.unice.websem.wisecat.controller;
 
+import org.apache.jena.atlas.lib.RandomLib;
 import org.polytech.unice.websem.wisecat.model.Movie;
 import org.polytech.unice.websem.wisecat.model.RankableString;
 import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparqlMovie;
@@ -89,11 +90,11 @@ public class RecommandationController {
 
 
 	String[] genresList = {"Action","Adventure","Comedy","Crime","Fiction","Fantasy","Historical","Horror","Mystery","Paranoid","Philosophical","Political","Romance","Saga","Satire","Science fiction","Slice of Life","Speculative","Thriller","Urban"};
-	List<String> getRandomGenre(){
-		List<String> genres = new ArrayList<String>();
+	List<RankableString> getRandomGenre(){
+		List<RankableString> genres = new ArrayList<RankableString>();
 		int max = new Random().nextInt(5)+1;
 		for(int i=0;i<max;i++){
-			genres.add(genresList[new Random().nextInt(genresList.length)]);
+			genres.add(new RankableString("genre"+i,genresList[new Random().nextInt(genresList.length)]));
 		}
 		return genres;
 	}
@@ -105,7 +106,7 @@ public class RecommandationController {
 		List<RankableString> cast = new ArrayList<RankableString>();
 		int max = (new Random().nextInt(20)+5);
 		for(int i=0;i<max;i++){
-			cast.add(new RankableString(actorsNames[new Random().nextInt(actorsNames.length)]));
+			cast.add(new RankableString("user"+i,actorsNames[new Random().nextInt(actorsNames.length)]));
 		}
 		return cast;
 	}
