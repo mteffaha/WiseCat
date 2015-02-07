@@ -1,6 +1,7 @@
 package org.polytech.unice.websem.wisecat.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,7 +13,10 @@ public class Movie {
     private List<RankableString> genres = new ArrayList<RankableString>();
     private int duration;
     private String poster;
+    private Date releaseDate;
     private String plot;
+    private String language;
+    private String imdbID;
     private List<String> subject = new ArrayList<String>();
 
     private List<RankableString> actors = new ArrayList<RankableString>();
@@ -48,9 +52,7 @@ public class Movie {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
-    }
+
 
     public int getDuration() {
         return duration;
@@ -138,5 +140,34 @@ public class Movie {
 
     public void setSubject(List<String> subject) {
         this.subject = subject;
+    }
+
+    public void setGenres(List<RankableString> genres) {
+        this.genres = genres;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getImdbID() {
+        return imdbID;
+    }
+
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 }
