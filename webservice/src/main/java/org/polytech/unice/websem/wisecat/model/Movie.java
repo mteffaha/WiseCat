@@ -13,6 +13,8 @@ public class Movie {
     private int duration;
     private String poster;
     private String plot;
+    private List<String> subject = new ArrayList<String>();
+
     private List<Person> actors = new ArrayList<Person>();
 
     private List<Person> directors = new ArrayList<Person>();
@@ -20,6 +22,7 @@ public class Movie {
     private List<Person> editors = new ArrayList<Person>();
     private List<String> songs = new ArrayList<String>();
     private List<Person> composers = new ArrayList<Person>();
+
 
 
     public Movie() {
@@ -127,5 +130,13 @@ public class Movie {
 
     public void setComposers(List<Person> composers) {
         this.composers = composers;
+    }
+
+    public List<String> getSubject() {
+        return subject;
+    }
+
+    public void setSubject(List<String> subject) {
+        this.subject = subject;
     }
 }
