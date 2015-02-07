@@ -33,46 +33,153 @@ public class RemoteSparqlMovie {
 
     public static void importMovie(String movieId){
         Movie movie = new Movie();
-        ResultSet results = RemoteSparqlMovie.importActors(movieId);
-        String val;
-        while(results.hasNext()){
-            val = results.next().get('actor').toString();
+        movie.setMovieId(movieId);
 
+        ResultSet results = RemoteSparqlMovie.importActors(movieId);
+
+        List<Person> list = new ArrayList<Person>();
+        Person person = new Person();
+        String name;
+        String id;
+        while(results.hasNext()){
+            id = results.next().get('actor').toString();
+            name = results.next().get('name').toString();
+            person.setPersonId(id);
+            person.setName(name);
+            list.add(person);
         }
-        ResultSetFormatter.out(System.out, results);
+        movie.setActors(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importDirector(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        List<Person> list = new ArrayList<Person>();
+        Person person = new Person();
+        String name;
+        String id;
+        while(results.hasNext()){
+            id = results.next().get('director').toString();
+            name = results.next().get('name').toString();
+            person.setPersonId(id);
+            person.setName(name);
+            list.add(person);
+        }
+        movie.setDirectors(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importEditor(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        List<Person> list = new ArrayList<Person>();
+        Person person = new Person();
+        String name;
+        String id;
+        while(results.hasNext()){
+            id = results.next().get('editor').toString();
+            name = results.next().get('name').toString();
+            person.setPersonId(id);
+            person.setName(name);
+            list.add(person);
+        }
+        movie.setEditors(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importWriter(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        List<Person> list = new ArrayList<Person>();
+        Person person = new Person();
+        String name;
+        String id;
+        while(results.hasNext()){
+            id = results.next().get('writer').toString();
+            name = results.next().get('name').toString();
+            person.setPersonId(id);
+            person.setName(name);
+            list.add(person);
+        }
+        movie.setWriters(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importGenre(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        List<Person> list = new ArrayList<Person>();
+        String name;
+        String id;
+        while(results.hasNext()){
+            id = results.next().get('genre').toString();
+            name = results.next().get('name').toString();
+            person.setPersonId(id);
+            person.setName(name);
+            list.add(person);
+        }
+        movie.setGenres(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importSong(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        List<String> list = new ArrayList<String>();
+        String name;
+        while(results.hasNext()){
+            name = results.next().get('name').toString();
+            list.add(name);
+        }
+        movie.setSongs(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importComposer(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        List<Person> list = new ArrayList<Person>();
+        Person person = new Person();
+        String name;
+        String id;
+        while(results.hasNext()){
+            id = results.next().get('composer').toString();
+            name = results.next().get('name').toString();
+            person.setPersonId(id);
+            person.setName(name);
+            list.add(person);
+        }
+        movie.setComposers(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importSubject(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        List<Person> list = new ArrayList<Person>();
+        Person person = new Person();
+        String name;
+        String id;
+        while(results.hasNext()){
+            id = results.next().get('subject').toString();
+            name = results.next().get('name').toString();
+            person.setPersonId(id);
+            person.setName(name);
+            list.add(person);
+        }
+        movie.setSubjects(list);
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importRuntime(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        // TODO == NULL
+        movie.setDuration(results.next());
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importDate(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        // TODO == NULL
+        movie.setDate(results.next());
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importLanguage(movieId);
-        ResultSetFormatter.out(System.out, results);
+
+        // TODO == NULL
+        movie.setLanguage(results.next());
+        // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importPage(movieId);
-        ResultSetFormatter.out(System.out, results);
+        
+        // TODO == NULL
+        movie.setIddd(results.next());
+        // ResultSetFormatter.out(System.out, results);
     }
 
     private static ResultSet importActors(String movieId){

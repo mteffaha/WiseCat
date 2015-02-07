@@ -14,7 +14,6 @@ public class Movie {
     private String poster;
     private String plot;
     private List<Person> actors = new ArrayList<Person>();
-
     private List<Person> directors = new ArrayList<Person>();
     private List<Person> writers = new ArrayList<Person>();
     private List<Person> editors = new ArrayList<Person>();
