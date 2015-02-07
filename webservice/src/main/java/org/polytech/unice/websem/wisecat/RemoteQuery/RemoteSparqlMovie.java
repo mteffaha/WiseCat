@@ -1,12 +1,13 @@
 package org.polytech.unice.websem.wisecat.RemoteQuery;
-package org.polytech.unice.websem.wisecat.model.Movie;
-package org.polytech.unice.websem.wisecat.model.RankableString;
 
+import org.polytech.unice.websem.wisecat.model.Movie;
+import org.polytech.unice.websem.wisecat.model.RankableString;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSetFormatter;
+import java.util.ArrayList;
 
 /**
  * Created by mtoffaha on 03/02/2015.
@@ -35,7 +36,7 @@ public class RemoteSparqlMovie {
 
     public static void importMovie(String movieId){
         Movie movie = new Movie();
-        movie.setMovieId(movieId);
+        movie.setMovieID(movieId);
 
         ResultSet results = RemoteSparqlMovie.importActors(movieId);
 
