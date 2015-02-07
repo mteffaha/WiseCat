@@ -62,15 +62,12 @@
   });
 
   WC.route('/search').post(function(req, res) {
-    var text;
-    text = req.body.val;
-    return lmdb.search({
-      title: text
-    }, function(err, contents) {
+    var title;
+    title = req.body.val;
+    return jena.search(title, function(err, contents) {
       if (err) {
-        console.log(err);
+        return console.log(err);
       }
-      return res.json(contents.toString());
     });
   });
 

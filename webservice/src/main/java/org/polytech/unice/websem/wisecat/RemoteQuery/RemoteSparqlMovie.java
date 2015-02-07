@@ -3,7 +3,9 @@ package org.polytech.unice.websem.wisecat.RemoteQuery;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSetFormatter;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 
 /**
  * Created by mtoffaha on 03/02/2015.
@@ -18,15 +20,17 @@ public class RemoteSparqlMovie {
         "\tPREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
         "\tPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n";
 
-    public static void search(String title){
+    public static RDFNode search(String title){
         String query = PREFIXES +
 "\t     SELECT *                                                               \n" +
 "\t     WHERE  {                                                                    \n" +
-"\t        ?movie dc:title " + title + ".                               \n" +
+"\t        ?movieId dc:title \"" + title + "\".                               \n" +
 "\t     }                                                                           \n";
 
         ResultSet results = QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-        ResultSetFormatter.out(System.out, results);
+
+        QuerySolution solution = results.next();
+        return solution.get("movieId");
     }
 
     public static void importMovie(String movieId){

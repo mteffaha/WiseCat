@@ -30,9 +30,11 @@ public class RecommandationController {
 
 
 
-	@RequestMapping(value = "lmdb", method = RequestMethod.GET)
-	public void lmdb() {
-		RemoteSparqlMovie.search("Saw");
+	@RequestMapping(value = "lmdb/{title}", method = RequestMethod.GET)
+	public void lmdb(@PathVariable("title") String title) {
+		String movieId = RemoteSparqlMovie.search(title).toString();
+		RemoteSparqlMovie.importMovie(movieId);
+
 		// System.out.println("http://data.linkedmdb.org/resource/film/1771");
 		// RemoteSparqlMovie.importMovie("http://data.linkedmdb.org/resource/film/1771");
 		// System.out.println("http://data.linkedmdb.org/resource/actor/29411");

@@ -37,11 +37,12 @@ WC.route '/autocomplete'
 # Search
 WC.route '/search'
 	.post (req, res) ->
-		text = req.body.val
-		lmdb.search title: text, (err, contents) ->
+		title = req.body.val
+		# lmdb.search title: text, (err, contents) ->
+		jena.search title, (err, contents) ->
 			if err
 				console.log err
-			res.json contents.toString()
+			# res.json contents.toString()
 
 # Recommendation
 WC.route '/recommendation'
