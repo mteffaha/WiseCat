@@ -188,11 +188,25 @@
 					rdfs:domain 			:User							;
 					rdfs:range				:Movie 							.
 
+# Usage of :post :
+# 	:me 	:post 			[
+#								:message	"Message !"				;
+#								:date 		"01-01-2014"^^xsd:date 	.
+#							]
 :post				a 						rdfs:Property					;
 					rdfs:label 				"poste le message"				;
 					rdfs:comment 			"décrit la relation entre un utilisateur et les messages de son mur";
 					rdfs:domain 			:User							;
+
+:message			a 						rdfs:Property					;
+					rdfs:label 				"message"						;
+					rdfs:comment 			"décrit la date du message"		;
 					rdfs:range				xsd:string						.
+
+:date				a 						rdfs:Property					;
+					rdfs:label 				"date du message"				;
+					rdfs:comment 			"décrit la date du message"		;
+					rdfs:range				xsd:date						.
 
 # Usage of :ranks :
 # 	:me 	:ranks 			[
