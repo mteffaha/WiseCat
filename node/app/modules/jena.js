@@ -14,12 +14,13 @@
       return _query('/lmdb', cb);
     },
     search: function(title, cb) {
-      return _query('/lmdb?title=' + title, cb);
+      return _query('/lmdb/' + encodeURI(title), cb);
     }
   };
 
   _query = function(path, cb) {
     var options, req;
+    console.log('omihdf');
     options = {
       hostname: 'localhost',
       port: 8080,

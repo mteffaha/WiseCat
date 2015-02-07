@@ -5,7 +5,6 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSetFormatter;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 
 /**
  * Created by mtoffaha on 03/02/2015.
@@ -20,7 +19,7 @@ public class RemoteSparqlMovie {
         "\tPREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
         "\tPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n";
 
-    public static RDFNode search(String title){
+    public static String search(String title){
         String query = PREFIXES +
 "\t     SELECT *                                                               \n" +
 "\t     WHERE  {                                                                    \n" +
@@ -28,13 +27,18 @@ public class RemoteSparqlMovie {
 "\t     }                                                                           \n";
 
         ResultSet results = QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-
-        QuerySolution solution = results.next();
-        return solution.get("movieId");
+        // TODO next() == NULL
+        return results.next().get("movieId").toString();
     }
 
     public static void importMovie(String movieId){
+        Movie movie = new Movie();
         ResultSet results = RemoteSparqlMovie.importActors(movieId);
+        String val;
+        while(results.hasNext()){
+            val = results.next().get('actor').toString();
+
+        }
         ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importDirector(movieId);

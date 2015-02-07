@@ -59,7 +59,6 @@
 
 :Song	 			a						rdfs:Class						;
 					owl:sameAs				lmdb:film_featured_song			;
-					rdfs:subClassOf 		:Rankable						;
 					rdfs:label				"Musique"						;
 	 				rdfs:comment			"Classe des musiques de film"	.
 

@@ -8,7 +8,7 @@ bl 		= require 'bl'
 module.exports = 
 	recommend 	: (cb) -> 			_query '/recommendation', cb
 	lmdb 		: (cb) -> 			_query '/lmdb', cb
-	search 		: (title, cb) -> 	_query '/lmdb?title=' + title, cb
+	search 		: (title, cb) -> 	_query '/lmdb/' + encodeURI(title), cb
 
 
 #############################################################################
@@ -16,6 +16,7 @@ module.exports =
 #############################################################################
 
 _query = (path, cb) ->
+	console.log 'omihdf'
 	options = 
 		hostname	: 'localhost'
 		port 		: 8080
