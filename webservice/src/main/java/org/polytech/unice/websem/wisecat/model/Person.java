@@ -5,6 +5,8 @@ package org.polytech.unice.websem.wisecat.model;
  */
 public class Person {
     private String name;
+    private String photoURL;
+    private String imdbPage;
 
     public Person(String name) {
         this.name = name;
@@ -16,5 +18,21 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
+    public String getImdbPage() {
+        return imdbPage;
+    }
+
+    public void setImdbPage(String imdbPage) {
+        this.imdbPage = imdbPage;
     }
 }

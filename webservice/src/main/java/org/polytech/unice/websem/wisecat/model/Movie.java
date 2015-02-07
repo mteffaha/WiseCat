@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by mtoffaha on 03/02/2015.
+ *
+ * Movie
  */
 public class Movie {
     private String title;
@@ -12,6 +14,10 @@ public class Movie {
     private int duration;
     private String poster;
     private String plot;
+    private String imdb;
+    private String imdbScore;
+    private String rottenTomatoeScore;
+    private String trailerURL;
     private List<Person> actors = new ArrayList<Person>();
 
     public Movie() {
@@ -71,5 +77,13 @@ public class Movie {
 
     public void setPlot(String plot) {
         this.plot = plot;
+    }
+
+    public String getImdb() {
+        return imdb;
+    }
+
+    public void setImdb(String imdb) {
+        this.imdb = imdb;
     }
 }
