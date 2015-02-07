@@ -19,37 +19,37 @@ public class RemoteSparqlMovie {
         "\tPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n";
 
     public static void importMovie(String movieId){
-        ResultSet results = RemoteSparql.importActors(movieId);
+        ResultSet results = RemoteSparqlMovie.importActors(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importDirector(movieId);
+        results = RemoteSparqlMovie.importDirector(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importEditor(movieId);
+        results = RemoteSparqlMovie.importEditor(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importWriter(movieId);
+        results = RemoteSparqlMovie.importWriter(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importGenre(movieId);
+        results = RemoteSparqlMovie.importGenre(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importSong(movieId);
+        results = RemoteSparqlMovie.importSong(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importComposer(movieId);
+        results = RemoteSparqlMovie.importComposer(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importSubject(movieId);
+        results = RemoteSparqlMovie.importSubject(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importRuntime(movieId);
+        results = RemoteSparqlMovie.importRuntime(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importDate(movieId);
+        results = RemoteSparqlMovie.importDate(movieId);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importLanguage(movieId);
+        results = RemoteSparqlMovie.importLanguage(movieId);
         ResultSetFormatter.out(System.out, results);
     }
 

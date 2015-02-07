@@ -18,163 +18,29 @@ public class RemoteSparqlActor {
         "\tPREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
         "\tPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n";
 
-    public static void importActor(String movieId){
-        ResultSet results = RemoteSparql.importActors(movieId);
+    public static void importActor(String id){
+        ResultSet results = RemoteSparqlActor.importName(id);
         ResultSetFormatter.out(System.out, results);
 
-        results = RemoteSparql.importDirector(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importEditor(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importWriter(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importGenre(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importSong(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importComposer(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importSubject(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importRuntime(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importDate(movieId);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparql.importLanguage(movieId);
+        results = RemoteSparqlActor.importMovies(id);
         ResultSetFormatter.out(System.out, results);
     }
 
-    private static ResultSet importMovie(String id){
+    private static ResultSet importName(String id){
+        String query = PREFIXES +
+"\t     SELECT *                                                               \n" +
+"\t     WHERE  {                                                                    \n" +
+"\t        <" + id + "> lmdb:actor_name ?name.                               \n" +
+"\t     }                                                                           \n";
+
+        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
+    }
+
+    private static ResultSet importMovies(String id){
         String query = PREFIXES +
 "\t     SELECT *                                                               \n" +
 "\t     WHERE  {                                                                    \n" +
 "\t        ?movie lmdb:actor <" + id + ">.                               \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importDirector(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:director ?director.                               \n" +
-"\t        ?director lmdb:director_name ?name.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importEditor(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:editor ?editor.                               \n" +
-"\t        ?editor lmdb:editor_name ?name.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importWriter(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:writer ?writer.                               \n" +
-"\t        ?writer lmdb:writer_name ?name.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importGenre(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:genre ?genre.                               \n" +
-"\t        ?genre lmdb:film_genre_name ?name.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importSong(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:film_featured_song ?song.                               \n" +
-"\t        ?song lmdb:film_featured_song_name ?name.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importComposer(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:music_contributor ?composer.                              \n" +
-"\t        ?composer lmdb:music_contributor_name ?name.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importSubject(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> skos:subject ?subject.                               \n" +
-"\t        ?subject lmdb:film_subject_name ?name.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importRuntime(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:runtime ?runtime.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importDate(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> dc:date ?date.                                     \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importLanguage(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> lmdb:language ?language.                               \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importPage(String movieId){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + movieId + "> foaf:page ?page.                                 \n" +
 "\t     }                                                                           \n";
 
         return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
