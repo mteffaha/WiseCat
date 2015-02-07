@@ -1,8 +1,7 @@
 $ ->
-	console.log 'yoooooooooooooooooooooooooooooooooooo'
 	# Search KEYUP handler
 	# Send AJAX POST request to /search to server
-	$('#search input').on 'keyup', (event) ->
+	$('#searchButton input').on 'keyup', (event) ->
 		text = $(this).val()
 		# Search
 		if event.keyCode is 13
@@ -24,13 +23,14 @@ $ ->
 					user	: FB.user.id
 					val 	: text
 				success	: (data) ->
-					$('#autocomplete').val data
+					$('#autocompletion').empty()
+					$('<option value="' + suggestion + '">').appendTo('#autocompletion') for suggestion in data
 				dataType: 'json'
 			
 	# Recommend action handler
 	$('#recommend').on 'click', () ->
 		$.ajax 	
-			url 	: '/recommend'
+			url 	: '/recommendation'
 			type 	: 'POST'
 			# data 	: 
 			# 	user	: FB.user.id

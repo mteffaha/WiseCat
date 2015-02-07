@@ -18,6 +18,17 @@ public class RemoteSparqlMovie {
         "\tPREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
         "\tPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n";
 
+    public static void search(String title){
+        String query = PREFIXES +
+"\t     SELECT *                                                               \n" +
+"\t     WHERE  {                                                                    \n" +
+"\t        ?movie dc:title " + title + ".                               \n" +
+"\t     }                                                                           \n";
+
+        ResultSet results = RQueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
+        ResultSetFormatter.out(System.out, results);
+    }
+
     public static void importMovie(String movieId){
         ResultSet results = RemoteSparqlMovie.importActors(movieId);
         ResultSetFormatter.out(System.out, results);

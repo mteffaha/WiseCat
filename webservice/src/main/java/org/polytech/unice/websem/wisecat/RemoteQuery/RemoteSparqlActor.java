@@ -18,6 +18,7 @@ public class RemoteSparqlActor {
         "\tPREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
         "\tPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n";
 
+    // Page (commmon)
     private static ResultSet importPage(String id){
         String query = PREFIXES +
 "\t     SELECT *                                                               \n" +

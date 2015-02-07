@@ -44,6 +44,9 @@ mv $STATIC/*.html $ROOT/.thrash/$DATE/static
 mv $STATIC/*.js $ROOT/.thrash/$DATE/static
 mv $STATIC/*.css $ROOT/.thrash/$DATE/static
 
+# NOTE
+mv $ROOT/.thrash/$DATE/static/index.html $STATIC/index.html
+
 # Modules
 mv $MODULES/*.js $ROOT/.thrash/$DATE/modules
 

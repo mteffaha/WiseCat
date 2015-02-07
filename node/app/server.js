@@ -74,7 +74,7 @@
     });
   });
 
-  WC.route('/recommend').post(function(req, res) {
+  WC.route('/recommendation').post(function(req, res) {
     return jena.recommend(function(err, contents) {
       if (err) {
         console.log(err);

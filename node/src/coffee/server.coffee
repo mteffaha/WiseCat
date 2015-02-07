@@ -44,7 +44,7 @@ WC.route '/search'
 			res.json contents.toString()
 
 # Recommendation
-WC.route '/recommend'
+WC.route '/recommendation'
 	.post (req, res) ->
 		jena.recommend (err, contents) ->
 			if err
