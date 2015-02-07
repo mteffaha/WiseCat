@@ -74,11 +74,11 @@
 					rdfs:label				"Durée"							;
 	 				rdfs:comment			"Classe des durées de film"		.
 
-:Date 	 			a						xsd:gYear						;
+:Date 	 			a						xsd:string						;
 					rdfs:label				"Date"							;
 	 				rdfs:comment			"Classe des dates de sortie de film".
 
-:Language 	 		a						xsd:language					;
+:Language 	 		a						xsd:string					;
 					rdfs:label				"Langue"						;
 	 				rdfs:comment			"Classe des langues de film" 	.
 
@@ -89,27 +89,6 @@
 :User 				a 						rdfs:Class 						;
 					rdfs:label				"Utilisateur"					;
 					rdfs:comment			"Classe des utilisateurs"		.
-
-:Sex 				a 						rdfs:Class 						;
-					rdfs:label 				"Sexe d'un utilisateur"			;
-					rdfs:comment			"Classe de sexe des utilisateurs".
-
-# Sex instances
-:Male				a 						:Sex 							;
-					rdfs:label				"Homme"							;
-					rdfs:comment 			"Homme"							.
-
-:Female				a 						:Sex 							;
-					rdfs:label				"Femme"							;
-					rdfs:comment 			"Femme"							.
-
-:Age 				a 						xsd:integer						;
-					rdfs:label 				"Âge d'un utilisateur"			;
-					rdfs:comment			"Classe d'âge des utilisateurs".
-
-:Country			a 						xsd:string						;
-					rdfs:label 				"Pays d'un utilisateur"			;
-					rdfs:comment			"Classe de pays des utilisateurs".
 
 #---------------------------------------------------------------------------#
 # 								Classification related						#
@@ -172,26 +151,30 @@
 #############################################################################
 
 #---------------------------------------------------------------------------#
+# 								Movie related								#
+#---------------------------------------------------------------------------#
+
+:imdb 				a 						rdfs:Property					;
+					rdfs:label 				"à pour URI (IMDB)"				;
+					rdfs:comment 			"décrit l'URI IMDB";
+					rdfs:domain 			:Rankable						;
+					rdfs:range				rdfs:Resource					.
+
+:with 				a 						rdfs:Property					;
+					rdfs:label 				"a contribué à"				;
+					rdfs:comment 			"décrit une relation entre Rankable";
+					rdfs:domain 			:Movie							;
+					rdfs:range				:Rankable						.
+
+#---------------------------------------------------------------------------#
 # 								User related								#
 #---------------------------------------------------------------------------#
 
-:sex 				a 						rdfs:Property					;
-					rdfs:label 				"est de sexe"					;
-					rdfs:comment 			"décrit le sexe d'un utilisateur";
+:name 				a 						rdfs:Property					;
+					rdfs:label 				"s'appelle"						;
+					rdfs:comment 			"donne le nom d'un utilisateur";
 					rdfs:domain 			:User							;
-					rdfs:range				:Sex 							.
-
-:age 				a 						rdfs:Property					;
-					rdfs:label 				"est âgé de"					;
-					rdfs:comment 			"décrit l'âge d'un utilisateur";
-					rdfs:domain 			:User							;
-					rdfs:range				:Age 							.
-
-:country			a 						rdfs:Property					;
-					rdfs:label 				"est originaire de"				;
-					rdfs:comment 			"décrit l'origine d'un utilisateur";
-					rdfs:domain 			:User							;
-					rdfs:range				:Country						.
+					rdfs:range				xsd:string						.
 
 :follow 			a 						rdfs:Property					;
 					rdfs:label 				"suit"							;
@@ -205,11 +188,11 @@
 					rdfs:domain 			:User							;
 					rdfs:range				:Movie 							.
 
-:ignore 			a 						rdfs:Property					;
-					rdfs:label 				"ignore"						;
-					rdfs:comment 			"décrit la relation d'ignorer un film";
+:post				a 						rdfs:Property					;
+					rdfs:label 				"poste le message"				;
+					rdfs:comment 			"décrit la relation entre un utilisateur et les messages de son mur";
 					rdfs:domain 			:User							;
-					rdfs:range				:Movie 							.
+					rdfs:range				xsd:string						.
 
 # Usage of :ranks :
 # 	:me 	:ranks 			[

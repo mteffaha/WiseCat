@@ -25,7 +25,7 @@ public class RemoteSparqlMovie {
 "\t        ?movie dc:title " + title + ".                               \n" +
 "\t     }                                                                           \n";
 
-        ResultSet results = RQueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
+        ResultSet results = QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
         ResultSetFormatter.out(System.out, results);
     }
 
