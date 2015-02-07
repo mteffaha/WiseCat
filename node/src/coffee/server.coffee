@@ -4,6 +4,7 @@ bodyParser 			= require 'body-parser'
 async 				= require 'async'
 lmdb	 			= require './modules/queries'
 myapi 	 			= require './modules/myapifilms'
+jena 	 			= require './modules/jena'
 
 ###
 # Server config
@@ -24,11 +25,10 @@ WC.use bodyParser.urlencoded(
 # Routing
 ###
 
-# Search
+# Autocompletion
 WC.route '/autocomplete'
 	.post (req, res) ->
 		text = req.body.val
-		console.log req.body.user
 		myapi.autocomplete text, (err, data) ->
 			data = JSON.parse data
 			res.json (d.title for d in data)
@@ -38,9 +38,9 @@ WC.route '/autocomplete'
 		# 	(err, results)		-> console.log results
 
 
+# Search
 WC.route '/search'
 	.post (req, res) ->
-		console.log req.body.user
 		text = req.body.val
 		lmdb.search title: text, (err, contents) ->
 			if err
@@ -51,3 +51,11 @@ WC.route '/search'
 		# 	(cb)			 -> lmdb.search text,
 		# 	(err, results)	 -> console.log results
 		# ]
+
+# Recommendation
+WC.route '/recommend'
+	.post (req, res) ->
+		jena.recommend (err, contents) ->
+			if err
+				console.log err
+			res.json contents.toString()
