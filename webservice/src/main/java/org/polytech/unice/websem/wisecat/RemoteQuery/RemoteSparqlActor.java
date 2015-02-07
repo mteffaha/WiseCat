@@ -196,38 +196,6 @@ public class RemoteSparqlActor {
     }
 
     /**********************************************************************************************/
-    /**********************************SONG********************************************************/
-    /**********************************************************************************************/
-
-    public static void importSong(String id){
-        ResultSet results = RemoteSparqlActor.importSongName(id);
-        ResultSetFormatter.out(System.out, results);
-
-        results = RemoteSparqlActor.importSongMovies(id);
-        ResultSetFormatter.out(System.out, results);
-    }
-
-    private static ResultSet importSongName(String id){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        <" + id + "> lmdb:film_featured_song_name ?name.                               \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    private static ResultSet importSongMovies(String id){
-        String query = PREFIXES +
-"\t     SELECT *                                                               \n" +
-"\t     WHERE  {                                                                    \n" +
-"\t        ?movie lmdb:film_featured_song <" + id + ">.                               \n" +
-"\t     }                                                                           \n";
-
-        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-    }
-
-    /**********************************************************************************************/
     /**********************************GENRE*******************************************************/
     /**********************************************************************************************/
 
