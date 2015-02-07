@@ -48,9 +48,7 @@ public class Movie {
         this.title = title;
     }
 
-    public List<String> getGenres() {
-        return genres;
-    }
+
 
 
 
