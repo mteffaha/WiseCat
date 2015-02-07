@@ -32,10 +32,6 @@ WC.route '/autocomplete'
 		myapi.autocomplete text, (err, data) ->
 			data = JSON.parse data
 			res.json (d.title for d in data)
-		# async.parallel
-		# 	autocomplete: (cb)	-> myapi.autocomplete 	text, cb
-		# 	data		: (cb)	-> myapi.data 			text, cb,
-		# 	(err, results)		-> console.log results
 
 
 # Search
@@ -46,11 +42,6 @@ WC.route '/search'
 			if err
 				console.log err
 			res.json contents.toString()
-
-		# async.waterfall [
-		# 	(cb)			 -> lmdb.search text,
-		# 	(err, results)	 -> console.log results
-		# ]
 
 # Recommendation
 WC.route '/recommend'
@@ -66,3 +57,15 @@ WC.route '/lmdb'
 		jena.lmdb (err, contents) ->
 			if err
 				console.log err
+
+
+
+		# async.parallel
+		# 	autocomplete: (cb)	-> myapi.autocomplete 	text, cb
+		# 	data		: (cb)	-> myapi.data 			text, cb,
+		# 	(err, results)		-> console.log results
+
+		# async.waterfall [
+		# 	(cb)			 -> lmdb.search text,
+		# 	(err, results)	 -> console.log results
+		# ]

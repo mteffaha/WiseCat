@@ -1,5 +1,5 @@
 $ ->
-
+	console.log 'yoooooooooooooooooooooooooooooooooooo'
 	# Search KEYUP handler
 	# Send AJAX POST request to /search to server
 	$('#search input').on 'keyup', (event) ->
@@ -52,3 +52,8 @@ $ ->
 # Connection FB G+
 # REST IMDB affiche bande annonce
 # Autocompletion
+
+# Onto : wall, username, 
+# Node/FB : addUser
+# Jena :
+#

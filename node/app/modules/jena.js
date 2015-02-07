@@ -17,7 +17,6 @@
 
   _query = function(path, cb) {
     var options, req;
-    console.log('yo');
     options = {
       hostname: 'localhost',
       port: 8080,
