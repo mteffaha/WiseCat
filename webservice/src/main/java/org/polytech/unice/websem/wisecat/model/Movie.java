@@ -1,6 +1,7 @@
 package org.polytech.unice.websem.wisecat.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,16 +10,23 @@ import java.util.List;
 public class Movie {
     private String movieID;
     private String title;
-    private List<String> genres = new ArrayList<String>();
+    private List<RankableString> genres = new ArrayList<RankableString>();
     private int duration;
     private String poster;
+    private Date releaseDate;
     private String plot;
-    private List<Person> actors = new ArrayList<Person>();
-    private List<Person> directors = new ArrayList<Person>();
-    private List<Person> writers = new ArrayList<Person>();
-    private List<Person> editors = new ArrayList<Person>();
+    private String language;
+    private String imdbID;
+    private List<String> subject = new ArrayList<String>();
+
+    private List<RankableString> actors = new ArrayList<RankableString>();
+
+    private List<RankableString> directors = new ArrayList<RankableString>();
+    private List<RankableString> writers = new ArrayList<RankableString>();
+    private List<RankableString> editors = new ArrayList<RankableString>();
     private List<String> songs = new ArrayList<String>();
-    private List<Person> composers = new ArrayList<Person>();
+    private List<RankableString> composers = new ArrayList<RankableString>();
+
 
 
     public Movie() {
@@ -44,9 +52,7 @@ public class Movie {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
-    }
+
 
     public int getDuration() {
         return duration;
@@ -56,11 +62,11 @@ public class Movie {
         this.duration = duration;
     }
 
-    public List<Person> getActors() {
+    public List<RankableString> getActors() {
         return actors;
     }
 
-    public void setActors(List<Person> actors) {
+    public void setActors(List<RankableString> actors) {
         this.actors = actors;
     }
 
@@ -88,27 +94,27 @@ public class Movie {
         this.movieID = movieID;
     }
 
-    public List<Person> getDirectors() {
+    public List<RankableString> getDirectors() {
         return directors;
     }
 
-    public void setDirectors(List<Person> directors) {
+    public void setDirectors(List<RankableString> directors) {
         this.directors = directors;
     }
 
-    public List<Person> getWriters() {
+    public List<RankableString> getWriters() {
         return writers;
     }
 
-    public void setWriters(List<Person> writers) {
+    public void setWriters(List<RankableString> writers) {
         this.writers = writers;
     }
 
-    public List<Person> getEditors() {
+    public List<RankableString> getEditors() {
         return editors;
     }
 
-    public void setEditors(List<Person> editors) {
+    public void setEditors(List<RankableString> editors) {
         this.editors = editors;
     }
 
@@ -120,11 +126,48 @@ public class Movie {
         this.songs = songs;
     }
 
-    public List<Person> getComposers() {
+    public List<RankableString> getComposers() {
         return composers;
     }
 
-    public void setComposers(List<Person> composers) {
+    public void setComposers(List<RankableString> composers) {
         this.composers = composers;
+    }
+
+    public List<String> getSubject() {
+        return subject;
+    }
+
+    public void setSubject(List<String> subject) {
+        this.subject = subject;
+    }
+
+    public void setGenres(List<RankableString> genres) {
+        this.genres = genres;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getImdbID() {
+        return imdbID;
+    }
+
+    public void setImdbID(String imdbID) {
+        this.imdbID = imdbID;
     }
 }
