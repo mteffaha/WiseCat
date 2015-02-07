@@ -1,0 +1,263 @@
+@base				<http://www.wisecat.com/>								.
+@prefix		:		<http://www.wisecat.com/#>								.
+@prefix 	rdf: 	<http://www.w3.org/1999/02/22-rdf-syntax-ns#>			.
+@prefix 	rdfs: 	<http://www.w3.org/2000/01/rdf-schema#>					.
+@prefix 	owl: 	<http://www.w3.org/2002/07/owl#>						.
+@prefix 	xsd: 	<http://www.w3.org/2001/XMLSchema#>						.
+@prefix 	foaf:	<http://xmlns.com/foaf/0.1/>							.
+@prefix 	lmdb:	<http://data.linkedmdb.org/resource/movie>				.
+
+
+#############################################################################
+#								CLASSES										#
+#############################################################################
+
+#---------------------------------------------------------------------------#
+# 								Movie related								#
+#---------------------------------------------------------------------------#
+
+:Movie 				a						rdfs:Class						;
+					owl:sameAs				lmdb:film 						;
+					rdfs:subClassOf 		:Rankable						;
+	 				rdfs:label				"Film"							;
+	 				rdfs:comment			"Classe des films"				.
+
+:Actor 				a						rdfs:Class						;
+					owl:sameAs				lmdb:actor						;
+					rdfs:subClassOf			:Rankable						;
+					rdfs:label				"Acteur"						;
+	 				rdfs:comment			"Classe des acteurs"			.
+
+:Director			a						rdfs:Class						;
+					owl:sameAs				lmdb:director					;
+					rdfs:subClassOf 		:Rankable						;
+					rdfs:label				"Metteur en scène"				;
+	 				rdfs:comment			"Classe des metteurs en scène"	.
+
+:Editor 			a						rdfs:Class						;
+					owl:sameAs				lmdb:editor 					;
+					rdfs:subClassOf 		:Rankable						;
+					rdfs:label				"Monteur"						;
+	 				rdfs:comment			"Classe des monteurs" 			.
+
+:Writer 			a						rdfs:Class						;
+					owl:sameAs				lmdb:writer 					;
+					rdfs:subClassOf 		:Rankable						;
+					rdfs:label				"Scénariste"					;
+	 				rdfs:comment			"Classe des scénaristes"		.
+
+:Subject 			a						rdfs:Class						;
+					owl:sameAs				lmdb:film_subject				;
+					rdfs:label				"Sujet"							;
+	 				rdfs:comment			"Classe des sujets d'un film"	.
+
+:Genre	 			a						rdfs:Class						;
+					owl:sameAs				lmdb:film_genre	 				;
+					rdfs:subClassOf 		:Rankable						;
+					rdfs:label				"Genre"							;
+	 				rdfs:comment			"Classe des genres d'un film"	.
+
+:Song	 			a						rdfs:Class						;
+					owl:sameAs				lmdb:film_featured_song			;
+					rdfs:subClassOf 		:Rankable						;
+					rdfs:label				"Musique"						;
+	 				rdfs:comment			"Classe des musiques de film"	.
+
+:Composer 			a						rdfs:Class						;
+					owl:sameAs				lmdb:music_contributor			;
+					rdfs:subClassOf 		:Rankable						;
+					rdfs:label				"Compositeur"					;
+	 				rdfs:comment			"Classe des de compositeur"		.
+
+:Runtime 			a						rdfs:Class						;
+					owl:sameAs				lmdb:music_contributor			;
+					rdfs:label				"Durée"							;
+	 				rdfs:comment			"Classe des durées de film"		.
+
+:Date 	 			a						xsd:gYear						;
+					rdfs:label				"Date"							;
+	 				rdfs:comment			"Classe des dates de sortie de film".
+
+:Language 	 		a						xsd:language					;
+					rdfs:label				"Langue"						;
+	 				rdfs:comment			"Classe des langues de film" 	.
+
+#---------------------------------------------------------------------------#
+# 								User related								#
+#---------------------------------------------------------------------------#
+
+:User 				a 						rdfs:Class 						;
+					rdfs:label				"Utilisateur"					;
+					rdfs:comment			"Classe des utilisateurs"		.
+
+:Sex 				a 						rdfs:Class 						;
+					rdfs:label 				"Sexe d'un utilisateur"			;
+					rdfs:comment			"Classe de sexe des utilisateurs".
+
+# Sex instances
+:Male				a 						:Sex 							;
+					rdfs:label				"Homme"							;
+					rdfs:comment 			"Homme"							.
+
+:Female				a 						:Sex 							;
+					rdfs:label				"Femme"							;
+					rdfs:comment 			"Femme"							.
+
+:Age 				a 						xsd:integer						;
+					rdfs:label 				"Âge d'un utilisateur"			;
+					rdfs:comment			"Classe d'âge des utilisateurs".
+
+:Country			a 						xsd:string						;
+					rdfs:label 				"Pays d'un utilisateur"			;
+					rdfs:comment			"Classe de pays des utilisateurs".
+
+#---------------------------------------------------------------------------#
+# 								Classification related						#
+#---------------------------------------------------------------------------#
+
+# Rankables : Movies; Actor; Director; Editor; Writer; Song; Composer; Genre
+:Rankable			a						rdfs:Class 						;
+					rdfs:label				"Eligible aux rangs"			;
+	 				rdfs:comment			"Super classe de film, acteur, metteur en scène, monteur, scènariste, genre, compositeur et musique".
+
+:Rank				a						rdfs:Class 						;
+					rdfs:label				"Rang"							;
+	 				rdfs:comment			"Classification des films, acteurs, metteurs en scène, monteurs, scènaristes, genre, compositeurs et musiques".
+
+# Ranks instances
+:Rm2				a 						:Rank 							;
+					rdfs:label				"Peste"							;
+					rdfs:comment 			"Peste : rang  le plus négatif (-2)".
+
+:Rm1				a 						:Rank 							;
+					rdfs:label				"Mauvais"						;
+					rdfs:comment 			"Mauvais : rang négatif (-1)"	.
+
+:R0					a 						:Rank 							;
+					rdfs:label				"Normal"						;
+					rdfs:comment 			"Normal : rang neutre (0)"		.
+
+:Rp1				a 						:Rank 							;
+					rdfs:label				"Bon"							;
+					rdfs:comment 			"Normal : rang positif (1)"		.
+
+:Rp2				a 						:Rank 							;
+					rdfs:label				"Légendaire"					;
+					rdfs:comment 			"Légendaire : rang le plus positif (2)".
+
+:Level 				a 						rdfs:Class 						;
+					rdfs:label 	 			"Niveau"						;
+					rdfs:comment			"Niveau d'un utilisateur"		.
+
+# Level instances
+:L0 				a 						:Level 							;
+					rdfs:label 				"Newbie"						;
+					rdfs:label 				"Newbie : niveau de base (0)"	.
+
+:L1 				a 						:Level 							;
+					rdfs:label 				"Amateur"						;
+					rdfs:label 				"Amateur : niveau 1"			.
+
+:L2 				a 						:Level 							;
+					rdfs:label 				"Connaisseur"					;
+					rdfs:label 				"Connaisseur : niveau 2"		.
+
+:L3 				a 						:Level 							;
+					rdfs:label 				"Cinéphile"						;
+					rdfs:label 				"Cinéphile : niveau 3"			.
+
+
+#############################################################################
+#								PROPERTIES									#
+#############################################################################
+
+#---------------------------------------------------------------------------#
+# 								User related								#
+#---------------------------------------------------------------------------#
+
+:sex 				a 						rdfs:Property					;
+					rdfs:label 				"est de sexe"					;
+					rdfs:comment 			"décrit le sexe d'un utilisateur";
+					rdfs:domain 			:User							;
+					rdfs:range				:Sex 							.
+
+:age 				a 						rdfs:Property					;
+					rdfs:label 				"est âgé de"					;
+					rdfs:comment 			"décrit l'âge d'un utilisateur";
+					rdfs:domain 			:User							;
+					rdfs:range				:Age 							.
+
+:country			a 						rdfs:Property					;
+					rdfs:label 				"est originaire de"				;
+					rdfs:comment 			"décrit l'origine d'un utilisateur";
+					rdfs:domain 			:User							;
+					rdfs:range				:Country						.
+
+:follow 			a 						rdfs:Property					;
+					rdfs:label 				"suit"							;
+					rdfs:comment 			"décrit la relation de suivi entre utilisateur";
+					rdfs:domain 			:User							;
+					rdfs:range				:User 							.
+
+:watchLater			a 						rdfs:Property					;
+					rdfs:label 				"regardera plus tard"			;
+					rdfs:comment 			"décrit la relation d'ajout à la watch list";
+					rdfs:domain 			:User							;
+					rdfs:range				:Movie 							.
+
+:ignore 			a 						rdfs:Property					;
+					rdfs:label 				"ignore"						;
+					rdfs:comment 			"décrit la relation d'ignorer un film";
+					rdfs:domain 			:User							;
+					rdfs:range				:Movie 							.
+
+# Usage of :ranks :
+# 	:me 	:ranks 			[
+#								:rank 		:Rp2			;
+#								:rankable 	:TheShining 	.
+#							]
+:ranks		 		a 						rdfs:Property					;
+					rdfs:label 				"affecte le rang X au rankable Y";
+					rdfs:comment 			"Propriété d'affectation de rang à un rankable par un utilisateur";
+					rdfs:domain 			:User							.
+
+:rank 				a 						rdfs:Property 					;
+					rdfs:label 				"affecte le rang X" 			;
+					rdfs:label 				"Pointe vers un rang" 			;
+					rdfs:range	 			:Rank							.
+
+:rankable			a 						rdfs:Property 					;
+					rdfs:label 				"affecte un rankable Y"			;
+					rdfs:label 				"Pointe vers un rankable"		;
+					rdfs:range	 			:Rankable						.
+
+# Usage of :recommends :
+# 	:me 	:recommends 	[
+#								:to 		:you			;
+#								:rankable 	:TheShining 	.
+#							]
+:recommends	 		a 						rdfs:Property					;
+					rdfs:label 				"recommande le rankable X à l'utilisateur Y";
+					rdfs:comment 			"Propriété de recommendation d'un rankable à un utilisateur";
+					rdfs:domain 			:User							.
+
+:to 				a 						rdfs:Property 					;
+					rdfs:label 				"recommende à un utlisateur Y"	;
+					rdfs:label 				"Pointe vers un utilisateur"	;
+					rdfs:range	 			:User							.
+
+#---------------------------------------------------------------------------#
+# 								Classification related						#
+#---------------------------------------------------------------------------#
+
+:hasRank	 		a 						rdfs:Property					;
+					rdfs:label 				"a pour rang"					;
+					rdfs:comment 			"Super propriété d'appartenance à un rang pour un rankable";
+					rdfs:domain 			:Rankable						;
+					rdfs:range				:Rank 							.
+
+:hasLevel	 		a 						rdfs:Property					;
+					rdfs:label 				"a pour niveau"					;
+					rdfs:comment 			"Super propriété d'appartenance à un niveau pour un utilisateur";
+					rdfs:domain 			:User							;
+					rdfs:range				:Level 							.
