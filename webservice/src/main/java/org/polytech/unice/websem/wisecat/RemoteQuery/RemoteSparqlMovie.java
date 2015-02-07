@@ -51,6 +51,9 @@ public class RemoteSparqlMovie {
 
         results = RemoteSparqlMovie.importLanguage(movieId);
         ResultSetFormatter.out(System.out, results);
+
+        results = RemoteSparqlMovie.importPage(movieId);
+        ResultSetFormatter.out(System.out, results);
     }
 
     private static ResultSet importActors(String movieId){

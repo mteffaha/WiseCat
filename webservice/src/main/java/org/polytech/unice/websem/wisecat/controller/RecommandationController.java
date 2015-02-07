@@ -24,8 +24,14 @@ public class RecommandationController {
 
 	@RequestMapping(value = "lmdb", method = RequestMethod.GET)
 	public void lmdb() {
-		// RemoteSparqlMovie.importMovie("http://data.linkedmdb.org/resource/film/1771");
+		System.out.println("http://data.linkedmdb.org/resource/film/1771");
+		RemoteSparqlMovie.importMovie("http://data.linkedmdb.org/resource/film/1771");
+		System.out.println("http://data.linkedmdb.org/resource/actor/29411");
 		RemoteSparqlActor.importActor("http://data.linkedmdb.org/resource/actor/29411");
+		System.out.println("http://data.linkedmdb.org/resource/film_featured_song/67");
+		RemoteSparqlActor.importSong("http://data.linkedmdb.org/resource/film_featured_song/67");
+		System.out.println("http://data.linkedmdb.org/resource/film_genre/12");
+		RemoteSparqlActor.importGenre("http://data.linkedmdb.org/resource/film_genre/12");
 	}
 
 	String[] movieTitles = {"the Grey","Saw","The Dark night","the shawshank redemption","Into the wild","The expendables"};
