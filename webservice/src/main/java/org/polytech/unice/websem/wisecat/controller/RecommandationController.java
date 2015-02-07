@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,9 +30,11 @@ public class RecommandationController {
 
 
 
-	@RequestMapping(value = "lmdb", method = RequestMethod.GET)
-	public void lmdb() {
-		RemoteSparqlMovie.search("Saw");
+	@RequestMapping(value = "lmdb/{title}", method = RequestMethod.GET)
+	public void lmdb(@RequestParam String title) {
+		String movieId = RemoteSparqlMovie.search(title).toString();
+		RemoteSparqlMovie.importMovie(movieId);
+
 		// System.out.println("http://data.linkedmdb.org/resource/film/1771");
 		// RemoteSparqlMovie.importMovie("http://data.linkedmdb.org/resource/film/1771");
 		// System.out.println("http://data.linkedmdb.org/resource/actor/29411");

@@ -12,6 +12,9 @@
     },
     lmdb: function(cb) {
       return _query('/lmdb', cb);
+    },
+    search: function(title, cb) {
+      return _query('/lmdb?title=' + title, cb);
     }
   };
 
