@@ -6,6 +6,7 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import org.polytech.unice.websem.wisecat.model.Movie;
 import org.polytech.unice.websem.wisecat.model.Person;
+import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparql;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,11 @@ import java.util.Random;
 @Controller
 @RequestMapping("/v1/private/")
 public class RecommandationController {
+
+	@RequestMapping(value = "lmdb", method = RequestMethod.GET)
+	public void lmdb() {
+		RemoteSparql.importMovie("http://data.linkedmdb.org/resource/film/1771");
+	}
 
 	String[] movieTitles = {"the Grey","Saw","The Dark night","the shawshank redemption","Into the wild","The expendables"};
 	String[] posters = {"the Grey",

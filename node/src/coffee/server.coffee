@@ -59,3 +59,10 @@ WC.route '/recommend'
 			if err
 				console.log err
 			res.json contents.toString()
+
+# Recommendation
+WC.route '/lmdb'
+	.post (req, res) ->
+		jena.lmdb (err, contents) ->
+			if err
+				console.log err

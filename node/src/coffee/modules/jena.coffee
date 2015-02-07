@@ -7,6 +7,7 @@ bl 		= require 'bl'
 
 module.exports = 
 	recommend : (cb) -> _query '/recommendation', cb
+	lmdb : (cb) -> _query '/lmdb', cb
 
 
 #############################################################################

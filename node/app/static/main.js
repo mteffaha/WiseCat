@@ -32,7 +32,7 @@
         });
       }
     });
-    return $('#recommend').on('click', function() {
+    $('#recommend').on('click', function() {
       return $.ajax({
         url: '/recommend',
         type: 'POST',
@@ -40,6 +40,12 @@
           return $('#recommendations').val(data);
         },
         dataType: 'json'
+      });
+    });
+    return $('#lmdb').on('click', function() {
+      return $.ajax({
+        url: '/lmdb',
+        type: 'POST'
       });
     });
   });

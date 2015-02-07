@@ -83,4 +83,12 @@
     });
   });
 
+  WC.route('/lmdb').post(function(req, res) {
+    return jena.lmdb(function(err, contents) {
+      if (err) {
+        return console.log(err);
+      }
+    });
+  });
+
 }).call(this);

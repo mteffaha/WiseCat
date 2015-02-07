@@ -8,12 +8,16 @@
 
   module.exports = {
     recommend: function(cb) {
-      return _query('/recommandation', cb);
+      return _query('/recommendation', cb);
+    },
+    lmdb: function(cb) {
+      return _query('/lmdb', cb);
     }
   };
 
   _query = function(path, cb) {
     var options, req;
+    console.log('yo');
     options = {
       hostname: 'localhost',
       port: 8080,

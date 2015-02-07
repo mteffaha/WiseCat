@@ -39,6 +39,11 @@ $ ->
 				$('#recommendations').val data
 			dataType: 'json'
 
+	$('#lmdb').on 'click', () ->
+		$.ajax 	
+			url 	: '/lmdb'
+			type 	: 'POST'
+
 
 
 # TODO
