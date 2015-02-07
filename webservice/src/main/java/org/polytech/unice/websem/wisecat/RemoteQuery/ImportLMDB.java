@@ -9,7 +9,7 @@ import com.hp.hpl.jena.query.ResultSetFormatter;
  * Created by mtoffaha on 03/02/2015.
  */
 public class ImportLMDB {
-    private static final String LINKEDMDB_SERVICE = "http://data.linkedmdb.org/sparql";
+   /* private static final String LINKEDMDB_SERVICE = "http://data.linkedmdb.org/sparql";
     private static final String PREFIXES =
         "  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
         "\tPREFIX dc:   <http://purl.org/dc/terms/>\n" +
@@ -248,4 +248,7 @@ public class ImportLMDB {
 
         return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
     }
+
+
+    */
 }

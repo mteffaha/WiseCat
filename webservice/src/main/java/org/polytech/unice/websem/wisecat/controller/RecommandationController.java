@@ -8,12 +8,17 @@ import org.polytech.unice.websem.wisecat.model.Movie;
 import org.polytech.unice.websem.wisecat.model.Person;
 import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparqlMovie;
 import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparqlActor;
+import org.polytech.unice.websem.wisecat.ontology.WisecatOntology;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,6 +26,12 @@ import java.util.Random;
 @Controller
 @RequestMapping("/v1/private/")
 public class RecommandationController {
+
+
+	@Autowired
+	private ApplicationContext applicationContext;
+
+
 
 	@RequestMapping(value = "lmdb", method = RequestMethod.GET)
 	public void lmdb() {
@@ -39,6 +50,20 @@ public class RecommandationController {
 	@RequestMapping(value = "recommendation", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Movie> getShopInJSON() {
+
+
+		Resource resource = applicationContext.getResource("wisecat.ttl");
+		WisecatOntology ontology = null;
+
+
+		try {
+			ontology = WisecatOntology.getInstance(resource.getFile().getPath());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+
 		List<Movie> recommandations = new ArrayList<Movie>();
 		Random random = new Random();
 		for(int i=0;i<movieTitles.length;i++){
