@@ -155,7 +155,7 @@
 		<script type="text/javascript">
 			var urls = {
 				base : "",
-				getRecommandation:urls.base+"/recommendation"
+				getRecommandation:this.base+"/recommendation"
 			}
 		
 		
@@ -200,6 +200,7 @@
 				  .done(function( movies ) {
 					//Si erreur de type de donnée , il faut parser en JSON
 					//movies = $.parseJSON(movies);
+					console.log(movies);
 					$.each(movies,function(index,movie){
 						addMovie(movie);
 					});
@@ -209,8 +210,6 @@
 				
 				
 				
-				
-				console.log('Animation Done! '+movies.length);
 				$('#floatingMenu').click(function(){
 					removeCurrentMovie();
 					addMovie({poster:'http://gdj.gdj.netdna-cdn.com/wp-content/uploads/2011/12/grey-movie-poster.jpg',title:'The Grey'});

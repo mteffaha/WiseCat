@@ -62,6 +62,10 @@ public class RecommandationController {
 			e.printStackTrace();
 		}
 
+		ontology.likeMovie("jj12312312","imdb213213");
+		ontology.followUser("jj12312312","imdb213213");
+
+		ontology.printOntology();
 
 
 		List<Movie> recommandations = new ArrayList<Movie>();
