@@ -1,13 +1,8 @@
 package org.polytech.unice.websem.wisecat.controller;
 
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter;
 import org.polytech.unice.websem.wisecat.model.Movie;
-import org.polytech.unice.websem.wisecat.model.Person;
+import org.polytech.unice.websem.wisecat.model.RankableString;
 import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparqlMovie;
-import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparqlActor;
 import org.polytech.unice.websem.wisecat.ontology.WisecatOntology;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -106,11 +101,11 @@ public class RecommandationController {
 	String[] actorsNames = {"Marlon Brando","Jack Nicholson","James Stewart","Humphrey Bogart","Spencer Tracy","Henry Fonda","Robert De Niro","Gary Cooper","Charles Chaplin","Anthony Hopkins","John Wayne","Fred Astaire","Laurence Olivier","Cary Grant","Clark Gable","Dustin Hoffman","Paul Newman","Gregory Peck","Al Pacino","William Holden","Buster Keaton","James Dean","James Cagney","Gene Kelly","Robert Mitchum","Burt Lancaster","Sidney Poitier","Kirk Douglas","Michael Caine","Peter Sellers","Gene Hackman","Jack Lemmon","Ralph Fiennes","Johnny Depp","Anthony Quinn","Richard Burton","Robert Duvall","Sean Penn","John Hurt","Orson Welles","William Hurt","Kenneth Branagh","John Gielgud","Marcello Mastroianni","Edward G. Robinson","Clint Eastwood","Charlton Heston","Yves Montand","Liam Neeson","Denzel Washington","Kevin Spacey","Robert Redford","Steve McQueen","Alec Guinness","Richard Harris","Peter O'Toole","Harrison Ford","Gary Oldman","Tom Hanks","Morgan Freeman","Leonardo DiCaprio","Jon Voight","Alan Rickman","Christopher Walken","Mel Brooks","Colin Firth","Daniel Day-Lewis","Heath Ledger","Christopher Plummer","Andy Garcia","Javier Bardem","Robert Downey Jr.","Jim Carrey","Tommy Lee Jones","Sean Connery","Bill Murray","Alan Arkin","Max von Sydow","Jeff Bridges","Ben Kingsley","Steve Buscemi","Ian McKellen","Richard Dreyfuss","Jeremy Irons","John Malkovich","Samuel L. Jackson","Russell Crowe","Philip Seymour Hoffman","Matt Damon","Christian Bale","Brad Pitt","Tim Robbins","Chris Cooper","Kevin Costner","Benicio Del Toro","Edward Norton","Vincent Cassel","Viggo Mortensen","Tom Cruise","Christopher Lee"
 	};
 
-	List<Person> getRandomCast(){
-		List<Person> cast = new ArrayList<Person>();
+	List<RankableString> getRandomCast(){
+		List<RankableString> cast = new ArrayList<RankableString>();
 		int max = (new Random().nextInt(20)+5);
 		for(int i=0;i<max;i++){
-			cast.add(new Person(actorsNames[new Random().nextInt(actorsNames.length)]));
+			cast.add(new RankableString(actorsNames[new Random().nextInt(actorsNames.length)]));
 		}
 		return cast;
 	}
