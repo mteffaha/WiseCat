@@ -60,6 +60,12 @@ public class RemoteSparqlMovie {
         movie.setActors(list);
         // ResultSetFormatter.out(System.out, results);
 
+        results = RemoteSparqlMovie.importTitle(movieId);
+        if(results.hasNext()){
+            movie.setTitle(solution.get("title").toString());
+        }
+        // ResultSetFormatter.out(System.out, results);
+
         results = RemoteSparqlMovie.importDirector(movieId);
 
         list = new ArrayList<RankableString>();
@@ -190,6 +196,17 @@ public class RemoteSparqlMovie {
         //movie.setImdbID(results.next().getLiteral("imdb"));
         // ResultSetFormatter.out(System.out, results);
         return movie;
+    }
+
+    private static ResultSet importTitle(String movieId){
+
+        String query = PREFIXES +
+                "\t     SELECT *                                                               \n" +
+                "\t     WHERE  {                                                                    \n" +
+                "\t        <" + movieId + "> dc:title ?title.                               \n" +
+                "\t     }                                                                           \n";
+
+        return QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
     }
 
     private static ResultSet importActors(String movieId){
