@@ -112,7 +112,7 @@ public class WisecatOntology {
 
             if(solution.contains("movie")){
                 String movieID =solution.get("movie").asResource().getURI().substring(solution.get("movie").asResource().getURI().lastIndexOf('/') + 1);
-                recommandation.add(RemoteSparqlMovie.importMovie(movieID));
+                recommandation.add(RemoteSparqlMovie.importMovie("http://data.linkedmdb.org/resource/film/"+movieID));
             }
             // Fetch Movie
 
