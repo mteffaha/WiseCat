@@ -62,7 +62,7 @@ public class RemoteSparqlMovie {
 
         results = RemoteSparqlMovie.importTitle(movieId);
         if(results.hasNext()){
-            movie.setTitle(solution.get("title").toString());
+            movie.setTitle(results.next().get("title").toString());
         }
         // ResultSetFormatter.out(System.out, results);
 

@@ -10,185 +10,12 @@
 		<link rel="stylesheet" type="text/css" href="css/reset.css">
 		<link href='http://fonts.googleapis.com/css?family=Changa+One' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
-		<style>
-		
-			/*********************************************
-				Global Layout Elements
-			**********************************************/
-			header{
-				width:100vw;
-				padding-top:10px;
-				padding-bottom:10px;
-				height:50px;
-				position:absolute;
-				float:left;
-			}
+		<link href='css/main.css' rel='stylesheet' type='text/css'>
 			
-			header h1{
-				font-family:'Changa One';
-				font-size:30px;
-			}
-			aside{
-				width:50px;
-				height:100%;
-				float:left;
-				display:block;
-			}
-			
-			
-			
-			main{
-				width:100vw;
-				height:100vh;
-			}
-			/*********************************************
-				Movie Recommandation view
-			**********************************************/
-			
-			/* MovieDetails  */
-			#currentMovieDetail{
-				width:100vw;
-				position:absolute;
-				top:700px;
-				height:700px;
-				box-shadow:0px 0px 5px 5px #000;
-			}
-			
-			#currentMovieDetail .moviePoster,#currentMovieDetail .movieInformation{
-				display:inline-block;
-				
-				float:left;
-			}
-			#currentMovieDetail .movieInformation h1{
-				font-size:35px;
-				font-family:'Oswald';
-			}
-			#currentMovieDetail .movieInformation{
-				margin-left:10px;
-			}
-			#currentMovieDetail .moviePoster img{
-				height:700px;
-			}
-			
-			#currentMovieDetail .movieInformation div>span{
-				display:inline-block;
-				margin:5px;
-				background-color:#EEEEEE;
-				padding:10px;
-			}
-			
-			#currentMovieDetail .movieInformation div>span span,#currentMovieDetail .movieInformation div>span p{
-				display:inline-block;
-				margin:5px;
-			}
-			
-			#currentMovieDetail .movieInformation div>span p{
-				font-weight: 900;
-				color:#555555;
-			}
-			
-			#currentMovieDetail .movieInformation div>span span{
-				font-style: italic;
-			}
-			
-			
-			/* Movies Carousel*/
-			#recommandationList{
-				display:block;
-				width:100%;
-				height:700px;
-				overflow:hidden;
-				position:fixed;
-				background-position:cover;
-			}		
-			
-			#wrapperMoviesList{/* Movie Carousel*/
-				width:1200px;
-				height:90vh;
-				margin:auto;
-			}
-			
-			.movieElement{ /* the background image will be added through javascript*/
-				height:648px;
-				width:420px;
-				-webkit-background-size: cover;
-				-moz-background-size: contains;
-				-o-background-size: contains;
-				background-size: cover;
-				display:block;
-				position:absolute;
-			}
-			.movieElement h1{
-				width:400px;
-				padding:10px;
-				background-color:rgba(0,0,0,0.5);
-				color:white;
-				font-size:25px;
-				text-align:center;
-				font-family:oswald;
-			}
-			
-			/**********************
-						Floating Menu
-			***********************/
-			#floatingMenu{
-				float:right;
-				position:fixed;
-				width:90vw;
-				margin:auto;
-				z-index:99999;
-				top:0px;
-			}
-			#floatingMenu ul{
-				float:right;
-				margin-top:10px;
-			}
-			#floatingMenu li{
-				display:inline-block;
-				background-color:white;
-				margin-right:1px;
-				height:25px;
-				vertical-align:center;
-				font-family:'Oswald';
-			}
-			
-			#floatingMenu li span{
-				height:100%;
-				width:100%;
-				background-color:white;
-				padding:5px;
-			}
-			
-			
-			/****************************
-				Buttons
-			*****************************/
-			.buttonContainer{
-				display:block;
-				width:100px;
-				margin:auto;
-				background-color:white;
-				vertical-align:bottom;
-				margin-top:450px;
-			}
-			.buttonContainer>a{
-				width:100%;
-				padding:10px;
-				margin:1px;
-				background-color:red;
-				display:block;
-				text-align:center;
-			}
-			.buttonContainer>.watch{}
-			.buttonContainer>.watchlater{}
-			.buttonContainer>.ignore{}
-			
-			
-			
-		</style>	
 		<script src="https://code.jquery.com/jquery-2.1.3.js" type="text/javascript"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.1/TweenMax.min.js" type="text/javascript"></script>
 		<script id="#facebook-jssdk" src="http://connect.facebook.net/en_US/sdk.js"></script>
+		<script id="#facebook-jssdk" src="js/main.js"></script>
 		<script>
 			(function() {
 			  window.fbAsyncInit = function() {
@@ -204,97 +31,7 @@
 		</script>
 		<script src="../node/app/static/facebook.js" type="text/javascript"></script>
 		<script src="../node/app/static/main.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			var urls = {
-				base : "",
-				getRecommandation:this.base+"/recommendation"
-			}
-		
-		
-		
-			var yRotation = 10; // the multiplier for the rotation effect (each element will be rotated yRotation*index on the y axis)
-			var animationDuration = 1.4;
-			var leftTranslate = 100;
-			var topTranslate = 10;
-			var maxRotation  = 0; 
-			
-			var movieCount = 5;
-			
-			var positions=[];
-			$(document).ready(function(){
-				TweenMax.set($('#wrapperMoviesList'),{perspective:1200}); // Initialising the 3d scene
-				
-				
-				maxRotation = 0;
-				for(var i=0;i<movieCount;i++){
-					maxRotation-=5;
-					
-					elementScale = i/movieCount;
-					elementLeft = i * (leftTranslate * (i/movieCount));
-					elementTop = i * topTranslate;
-					elementRotationY = maxRotation;
-					
-					if(i != (movieCount -1)){
-						positions.push({css: { left: elementLeft, top: elementTop, scale: elementScale ,rotationY:elementRotationY},ease:Elastic.easeOut});
-					}else{ // last element
-						elementRotationY = 0;
-						positions.push({css: { left: elementLeft, top: elementTop, scale: elementScale ,rotationY:elementRotationY},ease:Elastic.easeOut});
-					}
-				}
-				
-			
-				$.ajax({
-				  url: urls.recommandation,
-				  beforeSend: function( xhr ) {
-					xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-				  }
-				})
-				  .done(function( movies ) {
-					//Si erreur de type de donnée , il faut parser en JSON
-					movies = $.parseJSON(movies);
-					console.log(movies);
-					$.each(movies,function(index,movie){
-						addMovie(movie);
-					});
-					animateCarrousel();
-				  });
-				
-				
-				
-				
-				$('#floatingMenu').click(function(){
-					removeCurrentMovie();
-					addMovie({poster:'http://gdj.gdj.netdna-cdn.com/wp-content/uploads/2011/12/grey-movie-poster.jpg',title:'The Grey'});
-					
-					
-				});
-			});
-			
-			
-			function addMovie(movie){
-					$('#wrapperMoviesList').prepend('<div class="movieElement" style="background-image:url('+movie.poster+');"><h1>'+movie.title+'</h1>'+
-					'<div class="buttonContainer"><a class="warch">Watch</a><a class="watchlater">Watch Later</a><a class="ignore">Ignore</a></div>'+
-					'</div>');
-					animateCarrousel();
-					$("#recommandationList").css("background-image",$('#wrapperMoviesList .movieElement').last().css('background-image'));
-			}
-			
-			function removeCurrentMovie(){
-				$('#wrapperMoviesList .movieElement').last().slideDown().remove();
-			}
-			
-			function animateCarrousel(){
-				$.each($('.movieElement'),function(index,element){
-					TweenMax.to(element, animationDuration, positions[index]);
-					
-				});
-			}
-			
-			
-		 
-		
-		
-		</script>
+	
     </head>
     <body>
 		<header>
@@ -375,12 +112,29 @@
 						</span>
 						
 					</div>
-					<p class="moviePlot"></p> <!-- the movie plot -->
+					<span>Plot :</span>
+					<div class="moviePlot">
+						
+						<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
+					</p> 
+					</div> <!-- the movie plot -->
 					<div class="movieTrailer">
-						</div>
-					<div> <!-- the movie cast -->
+						<h2>Trailer</h2>
+						<iframe src="http://www.imdb.com/video/imdb/vi3843072281/imdb/embed?autoplay=false&width=480" width="480" height="270" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>	
+					<div class="movieCast"> <!-- the movie cast -->
 						<h2>Cast</h2> <!-- the actor name -->
-						<span></span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
+						<span>Susan Strasberg</span> <!-- a container for uncatagorised informations like rating, age etc ... -->
 					</div>
 					
 					<div><!-- container for information about the network of user, which friends like/dislike this movies actor or any rankable attribute-->
