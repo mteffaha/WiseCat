@@ -95,6 +95,34 @@ public class WisecatOntology {
 
     }
 
+    public List<Movie> getRecommandation(String userID){
+
+        List<Movie> recommandation = new ArrayList<Movie>();
+
+        // Get Recommandation
+
+        ResultSet resultSet = executeQuery("SELECT ?movie WHERE{ " +
+                "<http://www.wisecat.com/User/"+userID+"> <http://www.wisecat.com/Rm2> ?rankable ." +
+                "?rankable <http://www.wisecat.com/with> ?movie}");
+
+        int grabbed = 0;
+        while(resultSet.hasNext() && grabbed<5){
+            // Fetch ID
+            QuerySolution solution = resultSet.next();
+
+            if(solution.contains("movie")){
+                String movieID =solution.get("movie").asResource().getURI().substring(solution.get("movie").asResource().getURI().lastIndexOf('/') + 1);
+                recommandation.add(RemoteSparqlMovie.importMovie(movieID));
+            }
+            // Fetch Movie
+
+            grabbed++;
+        }
+        // Add as recommanded
+
+        return recommandation;
+    }
+
     public void likeActor(String userID,String actorID){
         // Check if we fetched Related Movie
         List<Message> mesages = new ArrayList<Message>();

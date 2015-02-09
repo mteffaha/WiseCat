@@ -35,7 +35,7 @@ public class RemoteSparqlMovie {
         return results.next().get("movieId").toString();
     }
 
-    public static void importMovie(String movieId){
+    public static Movie importMovie(String movieId){
         Movie movie = new Movie();
         movie.setMovieID(movieId);
 
@@ -175,6 +175,7 @@ public class RemoteSparqlMovie {
         // TODO Find the correct id
         //movie.setImdbID(results.next().getLiteral("imdb"));
         // ResultSetFormatter.out(System.out, results);
+        return movie;
     }
 
     private static ResultSet importActors(String movieId){
