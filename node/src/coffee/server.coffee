@@ -2,7 +2,6 @@ express 			= require 'express'
 WC 					= express()
 bodyParser 			= require 'body-parser'
 async 				= require 'async'
-lmdb	 			= require './modules/queries'
 myapi 	 			= require './modules/myapifilms'
 jena 	 			= require './modules/jena'
 
