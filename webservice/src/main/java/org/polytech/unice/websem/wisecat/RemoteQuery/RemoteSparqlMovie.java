@@ -31,8 +31,11 @@ public class RemoteSparqlMovie {
                 "\t     }                                                                           \n";
 
         ResultSet results = QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, query).execSelect();
-        // TODO next() == NULL
-        return results.next().get("movieId").toString();
+
+        if(results.hasNext())
+            return results.next().get("movieId").toString();
+        else
+            return "";
     }
 
     public static Movie importMovie(String movieId){
@@ -43,11 +46,13 @@ public class RemoteSparqlMovie {
 
         List<RankableString> list = new ArrayList<RankableString>();
         RankableString person = new RankableString("","");
+        QuerySolution solution;
         String name;
         String id;
         while(results.hasNext()){
-            id = results.next().get("actor").toString();
-            name = results.next().get("name").toString();
+            solution = results.next();
+            id = solution.get("actor").toString();
+            name = solution.get("name").toString();
             person.setRankableID(id);
             person.setName(name);
             list.add(person);
@@ -61,8 +66,9 @@ public class RemoteSparqlMovie {
         person = new RankableString("","");
 
         while(results.hasNext()){
-            id = results.next().get("director").toString();
-            name = results.next().get("name").toString();
+            solution = results.next();
+            id = solution.get("director").toString();
+            name = solution.get("name").toString();
             person.setRankableID(id);
             person.setName(name);
             list.add(person);
@@ -76,8 +82,9 @@ public class RemoteSparqlMovie {
         person = new RankableString("","");
 
         while(results.hasNext()){
-            id = results.next().get("editor").toString();
-            name = results.next().get("name").toString();
+            solution = results.next();
+            id = solution.get("editor").toString();
+            name = solution.get("name").toString();
             person.setRankableID(id);
             person.setName(name);
             list.add(person);
@@ -90,8 +97,9 @@ public class RemoteSparqlMovie {
         list = new ArrayList<RankableString>();
         person = new RankableString("","");
         while(results.hasNext()){
-            id = results.next().get("writer").toString();
-            name = results.next().get("name").toString();
+            solution = results.next();
+            id = solution.get("writer").toString();
+            name = solution.get("name").toString();
             person.setRankableID(id);
             person.setName(name);
             list.add(person);
@@ -103,8 +111,9 @@ public class RemoteSparqlMovie {
 
         list = new ArrayList<RankableString>();
         while(results.hasNext()){
-            id = results.next().get("genre").toString();
-            name = results.next().get("name").toString();
+            solution = results.next();
+            id = solution.get("genre").toString();
+            name = solution.get("name").toString();
             person.setRankableID(id);
             person.setName(name);
             list.add(person);
@@ -127,8 +136,9 @@ public class RemoteSparqlMovie {
         list = new ArrayList<RankableString>();
         person = new RankableString("","");
         while(results.hasNext()){
-            id = results.next().get("composer").toString();
-            name = results.next().get("name").toString();
+            solution = results.next();
+            id = solution.get("composer").toString();
+            name = solution.get("name").toString();
             person.setRankableID(id);
             person.setName(name);
             list.add(person);
@@ -141,8 +151,9 @@ public class RemoteSparqlMovie {
         listStr = new ArrayList<String>();
         person = new RankableString("","");
         while(results.hasNext()){
-            id = results.next().getLiteral("subject").getString();
-            name = results.next().getLiteral("name").getString();
+            solution = results.next();
+            id = solution.getLiteral("subject").getString();
+            name = solution.getLiteral("name").getString();
             person.setRankableID(id);
             person.setName(name);
             listStr.add(id);
@@ -153,7 +164,8 @@ public class RemoteSparqlMovie {
         results = RemoteSparqlMovie.importRuntime(movieId);
 
         // TODO == NULL
-        movie.setDuration(Integer.parseInt(results.next().getLiteral("duration").getString()));
+        if(results.hasNext())
+            movie.setDuration(Integer.parseInt(results.next().getLiteral("runtime").getString()));
         // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importDate(movieId);
@@ -166,7 +178,9 @@ public class RemoteSparqlMovie {
         results = RemoteSparqlMovie.importLanguage(movieId);
 
         // TODO == NULL
-        movie.setLanguage(results.next().getLiteral("language").getString());
+        // TODO find language
+        // if(results.hasNext())
+        //     movie.setLanguage(results.next().getLiteral("language").getString());
         // ResultSetFormatter.out(System.out, results);
 
         results = RemoteSparqlMovie.importPage(movieId);
