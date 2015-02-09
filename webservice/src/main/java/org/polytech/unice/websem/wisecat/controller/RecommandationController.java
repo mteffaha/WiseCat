@@ -1,6 +1,7 @@
 package org.polytech.unice.websem.wisecat.controller;
 
 import org.apache.jena.atlas.lib.RandomLib;
+import org.polytech.unice.websem.wisecat.model.Message;
 import org.polytech.unice.websem.wisecat.model.Movie;
 import org.polytech.unice.websem.wisecat.model.RankableString;
 import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparqlMovie;
@@ -65,11 +66,26 @@ public class RecommandationController {
 		}
 
 		ontology.likeMovie("jj12312312","imdb213213");
-		ontology.followUser("jj12312312","imdb213213");
-		ontology.addUser("jj12312312","jjjblakklk");
-		ontology.searchUser("bla");
 
-		ontology.printOntology();
+		ontology.followUser("jj12312312", "imdb213213");
+		ontology.addUser("user123", "Mortadha Teffaha");
+		ontology.addUser("user001", "Truchi Romain");
+
+		ontology.likeActor("user123","29704");
+		ontology.postMessage("user123", "bla bla bla bla bla");
+		try {
+			Thread.sleep(300);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		ontology.searchUser("Mortadha Teffaha");
+		List<Message> messages = ontology.getWall("user123");
+		System.out.println("###########    Messages Fetched "+messages.size());
+		for(Message msg : messages){
+			System.out.println("# Mesage : "+msg.getMessage());
+		}
+
+		//ontology.printOntology();
 
 
 		List<Movie> recommandations = new ArrayList<Movie>();

@@ -2,10 +2,13 @@ package org.polytech.unice.websem.wisecat.ontology;
 
 import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.*;
+import org.polytech.unice.websem.wisecat.RemoteQuery.RemoteSparqlMovie;
+import org.polytech.unice.websem.wisecat.model.Message;
 import org.polytech.unice.websem.wisecat.model.Movie;
 import org.polytech.unice.websem.wisecat.model.User;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -14,9 +17,15 @@ import java.util.logging.Logger;
  */
 public class WisecatOntology {
 
-    private static final String NAMESPACE = "http://www.wisecat.com/#";
-
-
+    private static final String NAMESPACE = "http://www.wisecat.com";
+    private static final String LINKEDMDB_SERVICE = "http://data.linkedmdb.org/sparql";
+    private static final String LINKEDMDB_PREFIXES =
+            "  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                    "\tPREFIX dc:   <http://purl.org/dc/terms/>\n" +
+                    "\tPREFIX owl:  <http://www.w3.org/2002/07/owl#>\n" +
+                    "\tPREFIX lmdb: <http://data.linkedmdb.org/resource/movie/>\n" +
+                    "\tPREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
+                    "\tPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n";
     private Logger logger = Logger.getLogger(WisecatOntology.class.getName());
 
 
@@ -31,7 +40,6 @@ public class WisecatOntology {
         if(instance == null){
             instance = new WisecatOntology(modelURL);
         }
-
         return instance;
     }
 
@@ -45,17 +53,17 @@ public class WisecatOntology {
 
 
     private void addStatementBetweenResources(String leftResource, String relation, String rightResource){
-        Statement newMovie = ResourceFactory.createStatement(ResourceFactory.createResource(NAMESPACE+leftResource)
+        Statement newMovie = ResourceFactory.createStatement(ResourceFactory.createResource(NAMESPACE+"/"+leftResource)
                 ,ResourceFactory.createProperty(NAMESPACE,relation)
-                ,ResourceFactory.createResource(NAMESPACE+rightResource));
+                ,ResourceFactory.createResource(NAMESPACE+"/"+rightResource));
 
         // Adding the statement
         logger.info("Added Statement : "+newMovie.toString());
         model.add(newMovie);
     }
 
-    private void addStatementBetweenResourceAndProperty(String leftResource,String relation,String property){
-        Statement newMovie = ResourceFactory.createStatement(ResourceFactory.createResource(NAMESPACE+leftResource)
+    private void addStatementBetweenResourceAndProperty(String leftResource,String relation,Object property){
+        Statement newMovie = ResourceFactory.createStatement(ResourceFactory.createResource(NAMESPACE+"/"+leftResource)
                 ,ResourceFactory.createProperty(NAMESPACE,relation)
                 ,ResourceFactory.createTypedLiteral(property));
 
@@ -64,36 +72,75 @@ public class WisecatOntology {
         model.add(newMovie);
     }
 
+    private ResultSet executeQuery(String query){
+
+        String strQuery = "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n" +
+                "PREFIX fn: <http://www.w3.org/2005/xpath-functions#>\n" +
+                "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n" +
+                "PREFIX wc: <"+NAMESPACE+">\n" +
+                "PREFIX user: <"+NAMESPACE+"/User>\n"
+                + query;
 
 
-    public void likeMovie(String userID,String movieID){
-        addStatementBetweenResources("User/" + userID, "Rm2", "Movie/" + movieID);
+        Query queryObject = QueryFactory.create(strQuery);
+
+        QueryExecution qExe = QueryExecutionFactory.create(queryObject, model);
+        return qExe.execSelect();
     }
 
+    public void likeMovie(String userID,String movieID){ // TODO Set Like Level
+
+
+        addStatementBetweenResources("User/" + userID, "/Rm2", "Movie/" + movieID); // TODO Check that this is compatible with linkedMDB (URI Wise)
+
+    }
+
+    public void likeActor(String userID,String actorID){
+        // Check if we fetched Related Movie
+        List<Message> mesages = new ArrayList<Message>();
+        ResultSet resultsRes = executeQuery("SELECT ?movie WHERE{ ?movie <http://www.wisecat.com/with> <http://www.wisecat.com/Rankable/"+actorID+"> }");
+
+        if(resultsRes.hasNext()){ // Rankable already liked
+            logger.info("Actor Already Liked");
+            return;
+        }
+
+        // Like Rankable
+        addStatementBetweenResources("User/" + userID, "/Rm2", "Rankable/" + actorID);
+
+
+        // Add Related Movie
+        ResultSet results = QueryExecutionFactory.sparqlService(LINKEDMDB_SERVICE, "SELECT ?movie WHERE { ?movie <http://data.linkedmdb.org/resource/movie/actor> <http://data.linkedmdb.org/resource/actor/29704> }").execSelect();
+
+        while(results.hasNext()){
+            QuerySolution solution = results.next();
+
+            String mov = solution.get("movie").asResource().getURI().substring(solution.get("movie").asResource().getURI().lastIndexOf('/')+1);
+
+            addStatementBetweenResources("Rankable/" + actorID, "/with", "Movie/" + mov);
+        }
+
+    }
 
     public void followUser(String followerID,String followedID){
-        addStatementBetweenResources("User/" + followerID, "follow", "User/" + followedID);
+        addStatementBetweenResources( "User/"+followerID, "/follow",  "User/"+followedID);
     }
-
 
     public void addUser(String userId,String userName){
-        addStatementBetweenResourceAndProperty("User/" + userId, "name", userName);
+        addStatementBetweenResourceAndProperty( "User/"+userId, "/name", userName);
     }
 
-
-    public List<User> searchUser(String searchPhrase){
+    public List<User> searchUser(final String searchPhrase){
         List<User> matches = new ArrayList<User>();
-        Query query = QueryFactory.create("PREFIX wc:  <http://www.wisecat.com/#>" +
-                "select ?name ?user where {" +
-                "?user wc:name ?name." +
-                "FILTER(contains(?name,\""+searchPhrase+"\"))}"); //s2 = the query above
-        QueryExecution qExe = QueryExecutionFactory.create(query, model);
-        ResultSet resultsRes = qExe.execSelect();
+        ResultSet resultsRes = executeQuery("select ?name ?user where {\n" +
+               "?user <http://www.wisecat.com/name> ?name .\n" +
+                "\tFILTER( fn:contains( ?name , '"+searchPhrase+"'))\n}");
 
         try {
+            System.out.println("Checking Found Users");
             while (resultsRes.hasNext()) {
                 QuerySolution solution = resultsRes.nextSolution();
-                System.out.println("Result Found : ");
+                System.out.println(solution.toString());
                 String userID = "";
                 String userName = "";
 
@@ -103,7 +150,7 @@ public class WisecatOntology {
                 }
 
                 if(solution.contains("user")){
-                    userID = solution.get("user").asLiteral().getString();
+                    userID = solution.get("user").asResource().getLocalName();
                 }
                 matches.add(new User(userID,userName));
             }
@@ -114,21 +161,38 @@ public class WisecatOntology {
         return matches;
     }
 
-
     public void postMessage(String userId,String message){
-        addStatementBetweenResourceAndProperty(userId,"post",message);
+        addStatementBetweenResourceAndProperty("User/"+userId,"/post",message);
+    }
+
+    public List<Message> getWall(String userID){
+        List<Message> mesages = new ArrayList<Message>();
+        ResultSet resultsRes = executeQuery("SELECT ?message WHERE{ <http://www.wisecat.com/User/"+userID+"> <http://www.wisecat.com/post> ?message }");
+
+        try {
+            while (resultsRes.hasNext()) {
+                QuerySolution soln = resultsRes.nextSolution();
+                if(soln.contains("message")) {
+                    mesages.add(new Message(soln.get("message").asLiteral().getString(), new Date()));
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return mesages;
     }
 
     public void printOntology(){
         System.out.println("#########################################################################################");
-        model.write(System.out);
+        //model.write(System.out);
+        StmtIterator iter = model.listStatements();
+        while(iter.hasNext()){
+            Statement st = iter.next();
+            System.out.println(st);
+
+        }
         System.out.println("#########################################################################################");
     }
 
-
-
-    public List<Movie> executeMovieQuery(String query){
-        return null;
-    }
 
 }
