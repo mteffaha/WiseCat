@@ -72,6 +72,7 @@ public class RecommandationController {
 		ontology.addUser("user001", "Truchi Romain");
 
 		ontology.likeActor("user123","29704");
+
 		ontology.postMessage("user123", "bla bla bla bla bla");
 		try {
 			Thread.sleep(300);
@@ -87,20 +88,9 @@ public class RecommandationController {
 
 		//ontology.printOntology();
 
-
-		List<Movie> recommandations = new ArrayList<Movie>();
-		Random random = new Random();
-		for(int i=0;i<movieTitles.length;i++){
-			Movie mv = new Movie(movieTitles[i],Math.abs((random.nextInt()+90) % 200),"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",posters[i]);
-			mv.setGenres(getRandomGenre());
-			recommandations.add(mv);
-			mv.setPoster(posters[i]);
-			mv.setActors(getRandomCast());
-		}
+		return ontology.getRecommandation("user123");
 
 
-
-		return recommandations;
 
 	}
 
