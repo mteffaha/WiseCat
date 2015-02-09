@@ -48,11 +48,47 @@
 			/* MovieDetails  */
 			#currentMovieDetail{
 				width:100vw;
-				background-color:yellow;
 				position:absolute;
 				top:700px;
 				height:700px;
 				box-shadow:0px 0px 5px 5px #000;
+			}
+			
+			#currentMovieDetail .moviePoster,#currentMovieDetail .movieInformation{
+				display:inline-block;
+				
+				float:left;
+			}
+			#currentMovieDetail .movieInformation h1{
+				font-size:35px;
+				font-family:'Oswald';
+			}
+			#currentMovieDetail .movieInformation{
+				margin-left:10px;
+			}
+			#currentMovieDetail .moviePoster img{
+				height:700px;
+			}
+			
+			#currentMovieDetail .movieInformation div>span{
+				display:inline-block;
+				margin:5px;
+				background-color:#EEEEEE;
+				padding:10px;
+			}
+			
+			#currentMovieDetail .movieInformation div>span span,#currentMovieDetail .movieInformation div>span p{
+				display:inline-block;
+				margin:5px;
+			}
+			
+			#currentMovieDetail .movieInformation div>span p{
+				font-weight: 900;
+				color:#555555;
+			}
+			
+			#currentMovieDetail .movieInformation div>span span{
+				font-style: italic;
 			}
 			
 			
@@ -315,9 +351,11 @@
 				</div>
 			</div>
 			<div id="currentMovieDetail"><!-- A Panel displaying the current movie details , will be nice to show it with a parallax effect -->
-				<div class="moviePoster"></div><!-- The movie poster, we could grab it from imdb  -->
-				<div><!-- the movies details -->
-					<h1>Shutter Island</h1> <!-- the movies title -->
+				<div class="moviePoster">
+					<img src="http://www.impawards.com/2008/posters/dark_knight_ver12_xlg.jpg" alt="The Dark Night" />
+				</div><!-- The movie poster, we could grab it from imdb  -->
+				<div class="movieInformation"><!-- the movies details -->
+					<h1>The Dark Night</h1> <!-- the movies title -->
 					<div> <!-- all the uncatagorised informations like , genre, duration, release date , scores on imdb/rottentomates -->
 						<span>
 							<p>Duration</p> <!-- the information title -->
@@ -337,7 +375,9 @@
 						</span>
 						
 					</div>
-					<p></p> <!-- the movie plot -->
+					<p class="moviePlot"></p> <!-- the movie plot -->
+					<div class="movieTrailer">
+						</div>
 					<div> <!-- the movie cast -->
 						<h2>Cast</h2> <!-- the actor name -->
 						<span></span> <!-- a container for uncatagorised informations like rating, age etc ... -->
