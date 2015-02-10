@@ -27,21 +27,22 @@ WC.use bodyParser.urlencoded(
 # Autocompletion
 WC.route '/autocomplete'
 	.post (req, res) ->
-		text = req.body.val
+		console.log 'autocomplete'
+		text = req.body.text
 		myapi.autocomplete text, (err, data) ->
 			data = JSON.parse data
 			res.json (d.title for d in data)
 
-
 # Search
 WC.route '/search'
 	.post (req, res) ->
-		title = req.body.val
+		console.log 'search'
+		title = req.body.title
 		# lmdb.search title: text, (err, contents) ->
 		jena.search title, (err, contents) ->
 			if err
 				console.log err
-			# res.json contents.toString()
+			res.json contents.toString()
 
 # Recommendation
 WC.route '/recommendation'

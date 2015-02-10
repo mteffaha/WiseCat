@@ -34,18 +34,15 @@ DATE=`date +%F-%H-%M-%S`
 mkdir $ROOT/.thrash/
 mkdir $ROOT/.thrash/$DATE/
 mkdir $ROOT/.thrash/$DATE/modules
-mkdir $ROOT/.thrash/$DATE/static
+# mkdir $ROOT/.thrash/$DATE/static
 
 # Server
 mv $APP/server.js $ROOT/.thrash/$DATE/
 
 # Statics
-mv $STATIC/*.html $ROOT/.thrash/$DATE/static
-mv $STATIC/*.js $ROOT/.thrash/$DATE/static
-mv $STATIC/*.css $ROOT/.thrash/$DATE/static
-
-# NOTE
-mv $ROOT/.thrash/$DATE/static/index.html $STATIC/index.html
+# mv $STATIC/*.html $ROOT/.thrash/$DATE/static
+# mv $STATIC/*.js $ROOT/.thrash/$DATE/static
+# mv $STATIC/*.css $ROOT/.thrash/$DATE/static
 
 # Modules
 mv $MODULES/*.js $ROOT/.thrash/$DATE/modules
@@ -58,9 +55,9 @@ mv $MODULES/*.js $ROOT/.thrash/$DATE/modules
 coffee -o $APP -c $COFFEE/server.coffee
 
 # Statics
-jade -P $JADE -o $STATIC
-stylus $STYLUS -o $STATIC
-coffee -o $STATIC -c $COFFEE/static
+# jade -P $JADE -o $STATIC
+# stylus $STYLUS -o $STATIC
+# coffee -o $STATIC -c $COFFEE/static
 
 # Modules
 coffee -o $MODULES -c $COFFEE/modules

@@ -43,7 +43,8 @@
 
   WC.route('/autocomplete').post(function(req, res) {
     var text;
-    text = req.body.val;
+    console.log('autocomplete');
+    text = req.body.text;
     return myapi.autocomplete(text, function(err, data) {
       var d;
       data = JSON.parse(data);
@@ -61,11 +62,13 @@
 
   WC.route('/search').post(function(req, res) {
     var title;
-    title = req.body.val;
+    console.log('search');
+    title = req.body.title;
     return jena.search(title, function(err, contents) {
       if (err) {
-        return console.log(err);
+        console.log(err);
       }
+      return res.json(contents.toString());
     });
   });
 
