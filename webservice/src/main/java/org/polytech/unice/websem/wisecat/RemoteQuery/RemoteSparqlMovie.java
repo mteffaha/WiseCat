@@ -49,6 +49,7 @@ public class RemoteSparqlMovie {
         QuerySolution solution;
         String name;
         String id;
+
         while(results.hasNext()){
             solution = results.next();
             id = solution.get("actor").toString();

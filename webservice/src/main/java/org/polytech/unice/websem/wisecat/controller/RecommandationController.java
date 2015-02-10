@@ -1,6 +1,7 @@
 package org.polytech.unice.websem.wisecat.controller;
 
 import org.apache.jena.atlas.lib.RandomLib;
+import org.polytech.unice.websem.wisecat.RemoteQuery.MyMovieAPIWrapper;
 import org.polytech.unice.websem.wisecat.model.Message;
 import org.polytech.unice.websem.wisecat.model.Movie;
 import org.polytech.unice.websem.wisecat.model.RankableString;
@@ -87,8 +88,12 @@ public class RecommandationController {
 		}
 
 		//ontology.printOntology();
+		List<Movie> movies = ontology.getRecommandation("user123");
 
-		return ontology.getRecommandation("user123");
+		for(int i=0;i<movies.size();i++){
+			movies.set(i, MyMovieAPIWrapper.populateMovie(movies.get(i)));
+		}
+		return movies;
 
 
 
